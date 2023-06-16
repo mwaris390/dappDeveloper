@@ -1,0 +1,114 @@
+.notification{
+    width: 100%;
+    position: fixed;
+    padding: 0.5rem;
+    text-align: center;
+    background-color: #93C47D;
+    color: white;
+    transform: translateY(-100%);
+    transition: transform .5s ease-in-out;
+}
+.notif{
+    transform: translateY(0%);
+}
+#regbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem 0rem 2rem 0rem;
+}
+.regcard{
+    box-shadow: 0px 1px 15px 0px rgba(128, 128, 128, 0.51);
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid black; */
+    /* width: 30rem; */
+}
+.regcard .head{
+    /* border: 1px solid black; */
+    margin: 1rem;
+
+}
+.regcard .head h3 span:nth-child(1){
+    color: #93C47D;
+}
+.regcard .head h3 span:nth-child(2){
+    color: #0362AB;
+}
+.regcard .form form{
+    width: 100%;
+}
+.regcard .form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.regcard .form .inputbox{
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+.regcard .form .inputbox .radiobtn{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid #0387D2;
+    height: 2rem;
+}
+.regcard .form .inputbox:last-child button{
+    margin-bottom: 1rem;
+    height: 2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #0362AB;
+    border: none;
+    cursor: pointer;
+}
+.regcard .form .inputbox:last-child button:hover{
+    background-color: #03508b;
+}
+.regcard .form .inputbox input{
+    height: 2rem;
+    padding: 0px 5px 0px 5px;
+    border: 1px solid #0387D2;
+    outline: none;
+    color: #03508b;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.regcard .form .inputbox input:focus{
+    border: 1px solid #0362AB;
+}
+.regcard .form .inputbox a{
+    text-decoration: none;
+    color: #0362AB;
+    text-align: center;
+}
+.regcard .form .inputbox a:hover{
+    text-decoration: none;
+    color: #03508b;
+}
+@media screen and (max-width:640px){
+    .notification{
+        font-size: 0.8rem;
+    }
+    #box{
+    padding: 1rem ;
+    }
+    .regcard .head{
+        text-align: center;
+    }
+    #regbox{
+        padding: 0.5rem;
+    }
+}

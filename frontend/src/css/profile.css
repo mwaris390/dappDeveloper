@@ -1,0 +1,159 @@
+#probox{
+    display: flex;
+    width: 100%;
+    margin: 2rem 0rem 0rem 0rem;
+    padding: 1.5rem 2.5rem 1.5rem 2.5rem;
+}
+#probox .procard{
+    margin: 0rem 2rem 0rem 0rem;
+    width: 25%;
+    display:  flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0px 1px 15px 0px rgba(128, 128, 128, 0.51);
+    border-radius: 1rem;
+}
+#probox .procard h3{
+    text-align: center;
+    color: #0362AB;
+}
+#probox .procard form{
+    display:  flex;
+    flex-direction: column;
+}
+#probox .procard form input{
+    height: 2rem;
+    padding: 0px 5px 0px 5px;
+    border: 1px solid #0387D2;
+    outline: none;
+    margin-bottom: 0.5rem;
+}
+#probox .procard form input:disabled{
+    font-weight: bold;
+}
+#probox .procard form .radiobtn{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid #0387D2;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+}
+#probox .procard .updatebtn{
+    width: 100%;
+    height: 2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #0362AB;
+    border: none;
+    cursor: pointer;
+}
+#probox .procard form input:hover,#probox .procard form .radiobtn:hover{
+    border: 1px solid #03508b;
+}
+
+#probox .procard .updatebtn:hover{
+    background-color: #03508b;
+}
+#probox .sugcard{
+    width: 75%;
+    display:  flex;
+    padding: 1rem;
+    box-shadow: 0px 1px 15px 0px rgba(128, 128, 128, 0.51);
+    border-radius: 1rem;
+}
+#probox .sugcard h3{
+    text-align: center;
+    color: #0362AB;
+}
+#probox .sugcard .sugbox{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0rem 1rem 0rem 0rem;
+}
+#probox .sugcard .sugbox #suggbox,#probox .sugcard .sugbox #reviewbox{
+    width: 100%;
+    height: 50%;
+    resize: none;
+    border: 1px solid #0362AB;
+    padding: 0px 5px 0px 5px;
+    outline: none;
+    margin-bottom: 0.5rem;
+}
+#probox .sugcard .sugbox #suggbox:hover,#probox .sugcard .sugbox #reviewbox:hover{
+    border: 1px solid #03508b;
+}
+#probox .sugcard .sugbox .updatebtn{
+    width: 100%;
+    height: 2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #0362AB;
+    border: none;
+    cursor: pointer;
+}
+#probox .sugcard .sugbox .updatebtn:hover{
+    background-color: #03508b;
+}
+#probox .sugcard .sugbox textarea:disabled{
+    font-weight: bold;
+}
+#coursebox{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 2rem 0rem 0rem 0rem;
+    padding: 1.5rem 2.5rem 1.5rem 2.5rem;
+}
+#coursebox .coursecard{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0px 1px 15px 0px rgba(128, 128, 128, 0.51);
+    border-radius: 1rem;
+}
+#coursebox .coursecard .coursecontainer{
+    display: flex;
+    align-items: center;
+    height: 2.5rem;
+}
+#coursebox .coursecard .coursecontainer .courseheading,#coursebox .coursecard .coursecontainer .courseprogress{
+    width: 50%;
+    text-align: center;
+    color: #0362AB;
+    border: 1px solid #0362AB;
+}
+#coursebox .coursecard .coursecontainer .courseheading{
+    margin-right: 0.5rem;
+}
+
+
+@media screen and (max-width: 640px) {
+    #probox{
+        flex-direction: column;
+        padding: 0.5rem;
+    }
+    #probox .procard{
+        width: 100%;
+        margin: 0rem 0rem 2rem 0rem;
+    }
+    #probox .sugcard{
+        flex-direction: column;
+        width: 100%;
+    }
+    #probox .sugcard .sugbox{
+        width: 100%;
+        margin: 0rem 0rem 1rem 0rem;
+
+    }
+    #probox .sugcard .sugbox #suggbox,#probox .sugcard .sugbox #reviewbox{
+        height: 10rem;
+    }
+    #coursebox{
+        padding: 0.5rem;
+    }
+    
+}

@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+#coursecontentbox{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 2rem 0rem 0rem 0rem;
+}
+.chatbot{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    position: absolute;
+    width: 30rem;
+    transform: translateX(100%);
+    transition:  0.5s ease-in-out;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+}
+.active-chatbot{
+    transform: translateX(0%);
+    box-shadow: 1px 0px 15px 1px rgba(128, 128, 128, 0.51);
+}
+.chatbot iframe{
+    width: 100%;
+    height: 91vh;
+}
+.chatbot #cross{
+    padding: 0px 5px 0px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    cursor: pointer;
+    height: 3rem;
+}
+.chatbot #cross span{
+    width: 2rem;
+    height: 0.3rem;
+    margin-bottom: 0.25rem;
+}
+.chatbot #cross span:nth-child(1){
+    background-color: #93C47D;
+    transform: translateY(9px) rotate(45deg);
+}
+.chatbot #cross span:nth-child(2){
+    background-color: #362ab3;
+    transform: rotate(135deg);
+}
+#coursecontentbox .coursecontentcard{
+    width: 100%;
+    display:  flex;
+    flex-direction: column;
+    align-items: center;
+}
+#coursecontentbox .coursecontentcard .coursecontenthead{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed #0362AB;
+    width: 100%;
+    color: #0362AB;
+    padding-bottom: 0.5rem;
+    padding: 0rem 2.5rem 0.5rem 2.5rem;
+}
+#coursecontentbox .coursecontentcard .coursecontent{
+    /* width: 100%; */
+    margin: 2rem;
+    padding: 1.5rem 2.5rem 1.5rem 2.5rem;
+    box-shadow: 0px 1px 15px 0px rgba(128, 128, 128, 0.51);
+    border-radius: 1rem;
+}
+#coursecontentbox .coursecontentcard .coursecontent .code{
+    font-family: "source code pro",monospace;
+    font-size: 1.2rem;
+}
+#coursecontentbox .coursetest{
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+    padding: 1.5rem 2.5rem 1.5rem 2.5rem;
+    box-shadow: 0px 1px 15px 0px rgba(128, 128, 128, 0.51);
+    border-radius: 1rem;
+}
+#coursecontentbox .coursetest .coursetesthead{
+    text-align: center;
+    color: #0362AB;
+}
+#coursecontentbox .coursetest .coursetestcontent{
+    margin-top: 1rem;
+}
+
+#coursecontentbox .coursetest .coursetestcontent .coursetestcontentoption{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 0.5rem;
+} 
+#coursecontentbox .coursetest .coursetestbtn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+#coursecontentbox .coursetest .coursetestbtn button{
+    width: 6rem;
+    height: 2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #0362AB;
+    border: none;
+    cursor: pointer;
+}
+#coursecontentbox .coursetest .coursetestbtn .error button{
+    background-color: #E76161;
+
+}
+#coursecontentbox .coursetest .coursetestbtn button:hover{
+    background-color: #03508b;
+}
+@media screen and (max-width:640px){
+    #coursecontentbox .coursecontentcard .coursecontent,#coursecontentbox .coursetest{
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+    #coursecontentbox .coursetest .coursetestcontent .coursetestcontentoption h6{
+        /* border: 1px solid black; */
+        margin: 0px 4px 0px 4px;
+    }
+    .chatbot{
+        width: 21rem;
+    }
+    
+}

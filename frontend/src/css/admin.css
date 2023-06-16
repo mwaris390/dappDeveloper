@@ -1,0 +1,225 @@
+#adminbox{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 2rem 0rem 0rem 0rem;
+    padding: 1.5rem 2.5rem 1.5rem 2.5rem;
+}
+#adminbox .admincard{
+    width: 100%;
+    box-shadow: 0px 1px 15px 0px rgba(128, 128, 128, 0.51);
+    border-radius: 1rem;
+    padding: 0.5rem;
+}
+#adminbox .admincard .admininput{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#adminbox .admincard .admininput .custom-file-label {
+    width: 20%;
+    height: 2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #0362AB;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.5rem;
+  }
+  
+  #adminbox .admincard .admininput .custom-file-label:hover {
+    background-color: #03508b;
+  }
+  
+  #adminbox .admincard .admininput .custom-file-label:active {
+    background-color: #d5d5d5;
+  }
+
+  #adminbox .admincard .admininput input[type="file"]{
+    display: none;
+  }
+  
+
+#adminbox .admincard .admininput input{
+    width: 30%;
+    height: 2rem;
+    margin-right: 0.5rem;
+    font-weight: bold;
+    color: #0362AB;
+    border: 1px solid #0362AB;
+    cursor: pointer;
+    padding-left: 0.5rem;
+    outline: none;
+}
+#adminbox .admincard .admininput input::placeholder{
+    color: #0362AB;
+}
+
+#adminbox .admincard .admininput .adminbtn{
+    width: 20%;
+    height: 2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #0362AB;
+    border: none;
+    cursor: pointer;
+}
+#adminbox .admincard .admininput .adminbtn:hover{
+    background-color: #03508b;
+}
+#adminbox .admincard1{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    width: 100%;
+}
+#adminbox .admincard1 h4{
+    text-align: center;
+    color: #0362AB;
+    /* margin-bottom: 0.5rem; */
+}
+
+#adminbox .admincard1 .admininput1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 1px 15px 0px rgba(128, 128, 128, 0.51);
+    border-radius: 1rem;
+    width: 22%;
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+#adminbox .adminhead h2{
+    color: #0362AB;
+    width: 100%;
+    height: 2rem;
+    margin: 1rem 0rem 2rem 0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#adminbox .admincard1 .admininput1 .custom-file-label {
+    width: 100%;
+    height: 2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #0362AB;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  #adminbox .admincard1 .admininput1 .custom-file-label:hover {
+    background-color: #03508b;
+  }
+  
+  #adminbox .admincard1 .admininput1 .custom-file-label:active {
+    background-color: #d5d5d5;
+  }
+
+  #adminbox .admincard1 .admininput1 input[type="file"]{
+    display: none;
+  }
+#adminbox .admincard1 .admininput1 input{
+    width: 100%;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #0362AB;
+    border: 1px solid #0362AB;
+    cursor: pointer;
+    padding-left: 0.5rem;
+    outline: none;
+    background-color: #FAFAFA;
+}
+#adminbox .admincard1 .admininput1 img{
+    border: 1px solid #0362AB;
+    width: 100%;
+    height: 4rem;
+    margin-bottom: 0.5rem;
+    object-fit: cover;
+}
+#adminbox .admincard1 .admininput1 input:focus{
+    background-color: white;
+}
+
+#adminbox .admincard1 .admininput1 textarea{
+    resize: none;
+    width: 100%;
+    height: 10rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #0362AB;
+    border: 1px solid #0362AB;
+    cursor: pointer;
+    padding-left: 0.5rem;
+    outline: none;
+}
+#adminbox .admincard1 .admininput1 textarea:disabled{
+    background-color: white;
+}
+#adminbox .admincard1 .admininput1 input::placeholder{
+    color: #0362AB;
+}
+
+#adminbox .admincard1 .admininput1 .updatebtn,#adminbox .admincard1 .admininput1 .delbtn{
+    width: 100%;
+    height: 2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #0362AB;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    padding: 0rem 0.2rem 0rem 0.2rem;
+}
+#adminbox .admincard1 .admininput1 .updatebtn:hover,#adminbox .admincard1 .admininput1 .delbtn:hover{
+    background-color: #03508b;
+}
+
+.add{
+    margin-top: 4rem;
+}
+
+@media screen and (max-width: 640px) {
+    #adminbox{
+        padding: 0.5rem;
+    }
+    #adminbox .admincard .admininput{
+        flex-direction: column;
+        justify-content: center;
+    }
+    #adminbox .admincard .admininput input,#adminbox .admincard .admininput .custom-file-label{
+        width: 100%;
+        margin: 0rem 0rem 0.5rem 0rem;
+    }
+    #adminbox .admincard .admininput .adminbtn{
+        width: 100%;
+
+    }
+    #adminbox .admincard1{
+        flex-direction: column;
+        flex-wrap: nowrap;
+        /* width: 100%; */
+        margin: 0rem;
+    }
+    #adminbox .admincard1 .admininput1{
+        width: 100%;
+        margin: 1rem 0rem 0rem 0rem;
+    }
+    #adminbox .admincard1 .admininput1 input{
+        width: 100%;
+    }
+    #adminbox .admincard1 .admininput1 h4{
+        padding: 0.5rem;
+    }
+}
