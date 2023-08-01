@@ -21,15 +21,16 @@ async function authAdmin(req,res,next){
                 username:ans.name}, process.env.SECRET_KEY);
             if(truepass === false){
                 res.status(400).json({msg:"Invalid password"})
-            }
-            req.user = {
-                id:ans._id,
-                username:ans.name,
-                role:"admin",
-                jwt:token
+            }else{
+                req.user = {
+                    id:ans._id,
+                    username:ans.name,
+                    role:"admin",
+                    jwt:token
+                }
             }
         }
-        if(ans === null){
+        else{
             res.status(400).json({msg:"Invalid username"})
         }
     }
@@ -47,26 +48,27 @@ async function authUser(req,res,next){
                 username:ans.username}, process.env.SECRET_KEY);
             if(truepass === false){
                 res.status(400).json({msg:"Invalid password"})
-            }
-            req.user = {
-                id:ans._id,
-                username:ans.username,
-                role:"client",
-                jwt:token
-            }
+            }else{
+                req.user = {
+                    id:ans._id,
+                    username:ans.username,
+                    role:"client",
+                    jwt:token
+                }
+            }   
         }
-        if(ans === null){
+        else{
             res.status(400).json({msg:"Invalid username"})
         }
     }
     next()
 }
 router.post("/loginauth",authAdmin,authUser,async(req,res)=>{
-    res.status(200).send(req.user);
+    res.status(200).json(req.user);
 });
   
 
-module.exports = router;
+module.exports = router; 
 
 
 

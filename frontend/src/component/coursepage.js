@@ -10,9 +10,12 @@ import "../css/coursepage.css"
 import chatlogo from "../asset/robot-solid.svg";
 
 export function Coursepage (){
+
     const[notify,setNotify] = useState(0);
     const [msg,setMsg] = useState("");
+
     const [isActive,setIsActive] = useState(false);
+
     const [content, setContent] = useState([]);
     const [trueAns, setTrueAns] = useState([]);
     const [option1, setOption1] = useState([]);
@@ -20,6 +23,7 @@ export function Coursepage (){
     const [option3, setOption3] = useState([]);
     const [option4, setOption4] = useState([]);
     const [option5, setOption5] = useState([]);
+
     const [evt, setEvt] = useState([]);
     const [btnallow,setBtnallow] = useState(0)
 
@@ -30,18 +34,10 @@ export function Coursepage (){
     function hideNav(){
         setIsActive(false);
     }
+    
     const url = useParams();
     const uid = url.id
-    // function checkBtn(){
-    //  let i;
-    //  for(i=0;i<evt.length;i++){
-    //     if(evt[i] === uid && btnallow === 0){
-    //         setBtnallow(1)
-    //     }
-        // console.log(evt[i]=== uid);
-    //  }
-    // }
-    // checkBtn();
+    
     function testbtn(){
         let wrongAns = 0 ;
         let msg = "";
@@ -86,9 +82,11 @@ export function Coursepage (){
             },5000)
         }
     }
+    
     const user = useSelector((state)=>state.user);
     const dis = useDispatch();
     const nav = useNavigate();
+    
     useEffect(()=>{
         if(user.role==='admin'||user.role==='client'){
             axios.get(`http://localhost:3001/course/topicread?id=${url.id}`).then((result1)=>{
@@ -97,12 +95,14 @@ export function Coursepage (){
         }).catch((err)=>{
             console.log(err);
         })
-
-        axios.get(`http://localhost:3001/clientuser/readeval/${user.id}`).then((result1)=>{
+        if(user.role==='client'){
+            axios.get(`http://localhost:3001/clientuser/readeval/${user.id}`).then((result1)=>{
             setEvt(result1.data);
-        }).catch((err)=>{
-            console.log(err);
-        })
+            }).catch((err)=>{
+                console.log(err);
+            })
+        }
+        
         let i;
         for(i=0;i<evt.length;i++){
         if(evt[i] === uid && btnallow === 0){
@@ -113,6 +113,7 @@ export function Coursepage (){
             nav("/signin")
         }
     },[evt,btnallow,uid,url,user,nav,dis])
+    
     function check(){
         const data = localStorage.getItem("ld");
         if(data !== null){
@@ -123,6 +124,7 @@ export function Coursepage (){
         }
     }
     check()
+    
     return(
         <>
         {user.role!==""?<>
@@ -148,10 +150,6 @@ export function Coursepage (){
                             <div className="coursecontentcard">
                                 <div className="coursecontenthead">
                                     <h3>{url.ch} : {val.ctopic}</h3>
-                                    {/* <div id="burger" onClick={showNav} >
-                                        <span></span>
-                                        <span></span>
-                                    </div> */}
                                     <div className="chatbtn" onClick={showNav}>
                                         <img src={chatlogo} alt="chat" />
                                     </div>

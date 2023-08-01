@@ -12,6 +12,16 @@
     border-radius: 1rem;
     padding: 0.5rem;
 }
+#refreshbtn{
+    /* border: 1px solid black; */
+    width: 2.5rem;
+    height: 2.5rem;
+    position: fixed;
+    margin: 1rem;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
 #adminbox .admincard .admininput{
     display: flex;
     justify-content: center;

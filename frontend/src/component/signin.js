@@ -4,7 +4,9 @@ import {setUser} from "../reduxstates/loginslice";
 import axios from 'axios';
 import '../css/signin.css';
 import {Link,useNavigate} from 'react-router-dom';
+
 export function Signin (){
+    
     const[notify,setNotify] = useState(0);
     const [username,setUserName] = useState("")
     const [password,setPassword] = useState("")
@@ -14,6 +16,7 @@ export function Signin (){
     const user = useSelector((state)=>state.user);
     const dis = useDispatch();
     const nav = useNavigate();
+    
     function handleChangeUser(e){
         setUserName(e.target.value.trim())
     }
@@ -48,7 +51,6 @@ export function Signin (){
                 localStorage.setItem("ld",sobj);
             })
             .catch((err)=>{
-                // console.log(err.response.data.msg);
                 setMsg(err.response.data.msg)
                 setNotify(1);
                 setTimeout(()=>{
@@ -61,17 +63,14 @@ export function Signin (){
             setIsAdmin(false)
         }
     }
-    // console.log(user);
-    // function checkdata(){
-        
-    // }
+
     useEffect(()=>{
 
         if(user.role==='admin'||user.role==='client'){
             nav("/")
         }
     },[user,nav,dis])
-    // console.log(user);
+
     function check(){
         const data = localStorage.getItem("ld");
         if(data !== null){
@@ -82,6 +81,7 @@ export function Signin (){
         }
     }
     check()
+    
     return(
         <>
        {user.role === ""?<>

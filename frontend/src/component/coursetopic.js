@@ -5,8 +5,12 @@ import axios from "axios";
 import "../css/coursetopic.css";
 import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import refBtn from '../asset/rotate-solid.svg'
+
 export function Coursetopic (){
+    
     const user = useSelector((state)=>state.user);
+    
     const[notify,setNotify] = useState(0);
     const [msg,setMsg] = useState("");
 
@@ -55,8 +59,7 @@ export function Coursetopic (){
     const [q5o4,setQ5o4] = useState("");
 
     const [topic,setTopic] = useState([]);
-
-    
+    const [relo,setRelo] = useState(0);
 
     function handleSubmit(e){
         e.preventDefault();
@@ -107,14 +110,6 @@ export function Coursetopic (){
             setQ5o4("")
         }
     }
-    useEffect(()=>{
-        axios.get("http://localhost:3001/course/coursetopicread").then((result1)=>{
-            setTopic(result1.data);
-        }).catch((err)=>{
-            console.log(err);
-        })
-
-    },[])
 
     function delHandle(e){
         const id = e.target.value;
@@ -123,6 +118,7 @@ export function Coursetopic (){
             console.log(err);
         })
     }
+    
     function upHandle(e){
         const id = e.target.value;
         const cid = document.getElementById(`cid${id}`).value.trim();
@@ -178,14 +174,23 @@ export function Coursetopic (){
     }
     const nav = useNavigate();
     const dis = useDispatch();
+    
+    function pagerel(){
+        setRelo(relo+1);
+    }
+    
     useEffect(()=>{
         if(user.role==='admin'){
-            
+            axios.get("http://localhost:3001/course/coursetopicread").then((result1)=>{
+            setTopic(result1.data);
+            }).catch((err)=>{
+            console.log(err);
+        })
         }else{
             nav("/")
         }
-    },[user,nav,dis])
-    // console.log(user);
+    },[user,nav,dis,relo])
+
     function check(){
         const data = localStorage.getItem("ld");
         if(data !== null){
@@ -196,6 +201,7 @@ export function Coursetopic (){
         }
     }
     check()
+
     return(
         <>
         {user.role === "admin"?<>
@@ -203,6 +209,7 @@ export function Coursetopic (){
                 <h3>{msg}</h3>
         </div>
         <NavBar/>
+        <div id="refreshbtn" onClick={pagerel}><img src={refBtn} alt="rotate" /></div>
         <div id="topicbox">
             <div className="topiccard">
                 <h2>Course Topic</h2>

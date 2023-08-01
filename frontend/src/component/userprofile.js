@@ -5,13 +5,12 @@ import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {setUser} from "../reduxstates/loginslice";
 import '../css/profile.css';
+
 export function Userprofile (){
+    
     const user = useSelector((state)=>state.user);
     const[notify,setNotify] = useState(0);
-    const [msg,setMsg] = useState("")
-
-    const [isSubmitSug,setSubmitSug] = useState(0);
-    const [isSubmitRev,setSubmitRev] = useState(0);
+    const [msg,setMsg] = useState("");
 
     const[suggest,setSuggest] = useState("");
     const[review,setReview] = useState("");
@@ -19,9 +18,11 @@ export function Userprofile (){
     const [client,setClient] = useState([]);
     const[gender,setGender] = useState("male");
     const [ispasschanged,setIspasschanged] = useState("");
+    
     function handleChangeSuggest(e){
         setSuggest(e.target.value)
     }
+    
     function clickSubmitSug(){
         
         if(suggest!==""){
@@ -54,8 +55,10 @@ export function Userprofile (){
                 setReview("")
             }
     }
+    
     const nav = useNavigate();
     const dis = useDispatch();
+    
     useEffect(()=>{
         if(user.role==='client'){
             axios.get(`http://localhost:3001/clientuser/oneuserclread/${user.id}`).then((result1)=>{
@@ -67,6 +70,7 @@ export function Userprofile (){
             nav("/")
         }
     },[user,nav,dis])
+    
     function check(){
         const data = localStorage.getItem("ld");
         if(data !== null){
@@ -97,11 +101,12 @@ export function Userprofile (){
             })
         }
     }
+    
     let arr = []
     client.forEach((val)=>{
         arr = val.evalcourse;
     })
-    // console.log(arr[0].course);
+
     return(
         <>
         {user.role === "client"?<>

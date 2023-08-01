@@ -10,20 +10,20 @@ router.post("/useradd",authenticate,async (req,res)=>{
 
     const adminUser = new adminUserModel({name:username,password:pass});
     await adminUser.save();
-    console.log("USER ADDED")
+    //console.log("USER ADDED")
 });
 
 router.get("/userread",async(req,res)=>{
     await adminUserModel.find({},{__v:0}).then((users)=>{
         res.json(users)
-        console.log("USER READ")
+        //console.log("USER READ")
     });
 });
 
 router.delete(`/userdelete/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     await adminUserModel.deleteOne({_id:id});
-    console.log("USER DELETED")
+    //console.log("USER DELETED")
 
 });
 
@@ -31,10 +31,16 @@ router.put(`/userupdate/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     usn = req.body.username;
     pas= bcrypt.hashSync(req.body.password,10);
-    
-    await adminUserModel.updateOne({_id:id},{name:usn,password:pas}).then(()=>{
-        console.log("USER UPDATED");
-    })
+    const ispas = req.body.ispas;
+    if(ispas === true){
+        await adminUserModel.updateOne({_id:id},{name:usn,password:pas}).then(()=>{
+            //console.log("USER UPDATED");
+        })
+    }else{
+        await adminUserModel.updateOne({_id:id},{name:usn}).then(()=>{
+            //console.log("USER UPDATED");
+        })
+    }
 
 });
 

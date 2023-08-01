@@ -4,15 +4,12 @@ import { useEffect, useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {setUser} from "../reduxstates/loginslice";
-
+import refBtn from '../asset/rotate-solid.svg'
 import "../css/admin.css";
-export function Admin (){
-    const user = useSelector((state)=>state.user);
 
-    const headers = {
-        Authorization: `Bearer ${user.jwt}`,
-        'Content-Type': 'application/json', 
-      };
+export function Admin (){
+    
+    const user = useSelector((state)=>state.user);
 
     const[notify,setNotify] = useState(0);
     const [msg,setMsg] = useState("");
@@ -20,10 +17,10 @@ export function Admin (){
     const [username,setUsername]=useState("");
     const [password,setPass]=useState("");
     const [admins,setAdmins]=useState([]);
+    const [users,setUsers]=useState([]);
 
     const [revSug,setRevSug]=useState([]);
 
-    
     const [selectedFile, setSelectedFile] = useState(null);
 
     const [changeSelectedFile, setChangeSelectedFile] = useState(null);
@@ -31,7 +28,9 @@ export function Admin (){
     const [courseName,setCourseName] = useState("");
     const [courseDesc,setCourseDesc] = useState("");
     const [courses,setCourses]=useState([]);
-    
+    const [ispasschanged,setIspasschanged] = useState("");
+    const [rel,setRel] = useState(0);
+
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -44,6 +43,7 @@ export function Admin (){
             reader.readAsDataURL(file);
           }
     };
+
     const changeHandleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -137,9 +137,16 @@ export function Admin (){
         const id = e.target.value;
         const un = document.getElementById(`usn${id}`).value.trim();
         const ps= document.getElementById(`pas${id}`).value.trim();
-        axios.put(`http://localhost:3001/adminuser/userupdate/${id}`,{uid:user.id,username:un,password:ps,jwt:user.jwt}).catch((err)=>{
+
+        if(ps === ispasschanged){
+            axios.put(`http://localhost:3001/adminuser/userupdate/${id}`,{uid:user.id,username:un,password:ps,jwt:user.jwt,ispas:true}).catch((err)=>{
             console.log(err);
-        })
+            })
+        }else{
+            axios.put(`http://localhost:3001/adminuser/userupdate/${id}`,{uid:user.id,username:un,password:ps,jwt:user.jwt,ispas:false}).catch((err)=>{
+            console.log(err);
+            })
+        }
     }
     function handleDelete(e){
         const id = e.target.value;
@@ -149,36 +156,39 @@ export function Admin (){
         })
     }
 
-    useEffect(()=>{
-        axios.get("http://localhost:3001/adminuser/userread").then((result1)=>{
-            setAdmins(result1.data);
-        }).catch((err)=>{
-            console.log(err);
-        })
-
-        axios.get("http://localhost:3001/course/courseread").then((result2)=>{
-            setCourses(result2.data);
-        }).catch((err)=>{
-            console.log(err);
-        })
-
-        axios.get("http://localhost:3001/clientuser/revsugread").then((result3)=>{
-            setRevSug(result3.data);
-        }).catch((err)=>{
-            console.log(err);
-        })
-
-    },[])
     const nav = useNavigate();
     const dis = useDispatch();
+
     useEffect(()=>{
         if(user.role==='admin'){
-            
+            axios.get("http://localhost:3001/adminuser/userread").then((result1)=>{
+            setAdmins(result1.data);
+            }).catch((err)=>{
+                console.log(err);
+            })
+
+            axios.get("http://localhost:3001/clientuser/userclread").then((result1)=>{
+            setUsers(result1.data);
+            }).catch((err)=>{
+                console.log(err);
+            })
+
+            axios.get("http://localhost:3001/course/courseread").then((result2)=>{
+                setCourses(result2.data);
+            }).catch((err)=>{
+                console.log(err);
+            })
+
+            axios.get("http://localhost:3001/clientuser/revsugread").then((result3)=>{
+                setRevSug(result3.data);
+            }).catch((err)=>{
+                console.log(err);
+            })
         }else{
             nav("/")
         }
-    },[user,nav,dis])
-    // console.log(user);
+    },[user,nav,dis,rel])
+    
     function check(){
         const data = localStorage.getItem("ld");
         if(data !== null){
@@ -189,6 +199,11 @@ export function Admin (){
         }
     }
     check()
+    
+    function pagereload(){
+        setRel(rel+1);
+    }
+    
     return(
         <>
         {user.role === "admin"?<>
@@ -196,6 +211,7 @@ export function Admin (){
                 <h3>{msg}</h3>
         </div>
         <NavBar/>
+        <div id="refreshbtn" onClick={pagereload}><img src={refBtn} alt="rotate" /></div>
         <div id="adminbox">
         <div className="adminhead">
                 <h2>Admin</h2>
@@ -215,7 +231,7 @@ export function Admin (){
                             <div className="admininput1">
                             <h4>{key+1}</h4>
                             <input type="text" defaultValue={val.name}  id={`usn${val._id}`} />
-                            <input type="text" defaultValue={val.password} id={`pas${val._id}`}/>
+                            <input type="text" defaultValue={val.password} onChange={(e)=>{setIspasschanged(e.target.value)}} id={`pas${val._id}`}/>
                             <button  value={val._id} className="updatebtn" onClick={handleUpdate}>Update</button>
                             <button value={val._id} className="delbtn" onClick={handleDelete}>Delete</button>
                             </div>  
@@ -259,6 +275,7 @@ export function Admin (){
                 })}
               
             </div>
+            
             <div className="adminhead">
                 <h2>Suggestions And Review</h2>
             </div>
@@ -275,6 +292,27 @@ export function Admin (){
                     )
                 })}
             </div>
+
+            <div className="adminhead">
+                <h2>Client Users</h2>
+            </div>
+            <div className="admincard1">
+                    {users.map((val,key)=>{
+                        return(
+                            <>
+                            <div className="admininput1">
+                            <h4>{key+1}</h4>
+                            <input type="text" defaultValue={val._id} disabled/>
+                            <input type="text" defaultValue={val.username} disabled/>
+                            <input type="text" defaultValue={val.email} disabled/>
+                            <input type="text" defaultValue={val.age} disabled/>
+                            <input type="text" defaultValue={val.gender} disabled/>
+                            </div>  
+                            </>
+                        )
+                    })}           
+            </div>
+
         </div></>:""}
         </>
     )

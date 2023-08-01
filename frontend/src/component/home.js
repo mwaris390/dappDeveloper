@@ -1,31 +1,32 @@
 import { NavBar } from "./navbar";
 import { useEffect, useState } from "react";
-import {setUser,clearUser} from "../reduxstates/loginslice";
+import {setUser} from "../reduxstates/loginslice";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import '../css/home.css'
+import '../css/home.css';
+
 export function Home (){
+
     const [course,setCourse] = useState([]);
     const dis = useDispatch();
     const nav = useNavigate();
     const user = useSelector((state)=>state.user);
-    useEffect(()=>{
-        axios.get("http://localhost:3001/course/courseread").then((result1)=>{
-            setCourse(result1.data);
-        }).catch((err)=>{
-            console.log(err);
-        })
-    },[])
+
     useEffect(()=>{
         if(user.role==='admin'||user.role==='client'){
             nav("/")
+            axios.get("http://localhost:3001/course/courseread").then((result1)=>{
+            setCourse(result1.data);
+            }).catch((err)=>{
+                console.log(err);
+            })
         }else{
             nav("/signin")
         }
     },[user,nav,dis])
-    // console.log(user);
+    
     function check(){
         const data = localStorage.getItem("ld");
         if(data !== null){
@@ -36,10 +37,7 @@ export function Home (){
         }
     }
     check()
-    // setTimeout(() => {
-    //     dis(clearUser({id:"",name:"",role:"",jwt:""}));
-    //     localStorage.removeItem("ld")
-    // }, 30000*60);
+    
     return(
         <>
         {user.role!==''?<>
@@ -56,7 +54,7 @@ export function Home (){
                             <div className="image">
                                 <img src={val.image} alt="imgg" />
                             </div>
-                            <div className="content">
+                            <div className="content" >
                                 <div className="effort"><h5>By <span>Dapp</span><span>Developer</span>   {val.courseCode}</h5></div>
                                 <div className="coursename"><h3>{val.courseName}</h3></div>
                                 <div className="description">

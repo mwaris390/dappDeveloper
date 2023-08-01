@@ -15,27 +15,27 @@ router.post("/useradd",async (req,res)=>{
     const age = req.body.age;
     const user = new userModel({username:username,firstname:firstname,lastname:lastname,password:password,email:email,age:age,gender:gender});
     await user.save();
-    console.log("USER ADDED")
+    //console.log("USER ADDED")
 });
 
 router.get("/userclread",async(req,res)=>{
     await userModel.find({},{__v:0}).then((users)=>{
         res.json(users)
-        console.log("USER READ")
+        //console.log("USER READ")
     });
 });
 router.get(`/oneuserclread/:id`,async(req,res)=>{
     const id = req.params.id;
     await userModel.find({_id:id},{__v:0}).then((users)=>{
         res.json(users)
-        console.log("USER READ")
+        //console.log("USER READ")
     });
 });
 
 router.delete(`/usercdelete/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     await userModel.deleteOne({_id:id});
-    console.log("USER DELETED")
+    //console.log("USER DELETED")
 
 });
 
@@ -52,11 +52,11 @@ router.put(`/usercupdate/:id`,authenticate,async(req,res)=>{
 
     if(ispas === true){
         await userModel.updateOne({_id:id},{firstname:fs,lastname:ls,username:usn,password:pas,email:em,age:ag,gender:ge}).then(()=>{
-            console.log("USER UPDATED");
+            //console.log("USER UPDATED");
         })
     }else{
         await userModel.updateOne({_id:id},{firstname:fs,lastname:ls,username:usn,email:em,age:ag,gender:ge}).then(()=>{
-            console.log("USER UPDATED");
+            //console.log("USER UPDATED");
         })
     }
     
@@ -70,21 +70,20 @@ router.post("/revsugadd",async (req,res)=>{
     const userMsg = req.body.msg
     const revSug = new revSugModel({userName:userName,category:category,userMsg:userMsg});
     await revSug.save();
-    console.log("REV ADDED")
+    //console.log("REV ADDED")
 });
 
 router.get("/revsugread",async(req,res)=>{
     await revSugModel.find({},{__v:0}).then((result)=>{
         res.json(result)
-        console.log("REV READ")
+        //console.log("REV READ")
     });
 });
 
 router.delete(`/revsugdelete/:id`,async(req,res)=>{
     const id = req.params.id;
-    console.log(id);
     await revSugModel.deleteOne({_id:id});
-    console.log("REV DELETED")
+    //console.log("REV DELETED")
 
 });
 
@@ -100,7 +99,7 @@ router.post("/addeval",authenticate,async (req,res)=>{
     })
     
     await userModel.updateOne({_id:id},{evaltopic:[...evaltopic,eval],evalcourse:[...evalcourse,cval]}).then(()=>{
-        console.log("USER Evaluatation UPDATED");
+        //console.log("USER Evaluatation UPDATED");
     })
 });
 

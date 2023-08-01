@@ -5,27 +5,29 @@ import { useEffect, useState } from "react";
 import {setUser} from "../reduxstates/loginslice";
 import axios from 'axios';
 import "../css/coursemilestone.css";
+
 export function CourseMilstone (){
+
     const [milstone,setMilestone] = useState([]);
+    
     const url = useParams();
-    useEffect(()=>{
-        axios.get(`http://localhost:3001/course/topicread?cid=${url.cid}`).then((result1)=>{
-            setMilestone(result1.data);
-        }).catch((err)=>{
-            console.log(err);
-        })
-    },[])
+    
     const user = useSelector((state)=>state.user);
     const dis = useDispatch();
     const nav = useNavigate();
+
     useEffect(()=>{
         if(user.role==='admin'||user.role==='client'){
-            
+            axios.get(`http://localhost:3001/course/topicread?cid=${url.cid}`).then((result1)=>{
+            setMilestone(result1.data);
+            }).catch((err)=>{
+                console.log(err);
+            })
         }else{
             nav("/signin")
         }
-    },[user,nav,dis])
-    // console.log(user);
+    },[user,nav,dis,url.cid])
+
     function check(){
         const data = localStorage.getItem("ld");
         if(data !== null){
@@ -36,6 +38,7 @@ export function CourseMilstone (){
         }
     }
     check()
+    
     return(
         <>
         {user.role !== ""?<>

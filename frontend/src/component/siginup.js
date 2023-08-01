@@ -4,7 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import {setUser} from "../reduxstates/loginslice";
 import { useState,useEffect } from 'react';
 import '../css/signup.css';
+
 export function Signup (){
+    
     const[notify,setNotify] = useState(0);
     const [msg,setMsg] = useState("")
 
@@ -19,26 +21,30 @@ export function Signup (){
     function handleChangeUser(e){
         setUserName(e.target.value.trim())
     }
+    
     function handleChangePass(e){
         setPassword(e.target.value.trim())
     }
+    
     function handleChangeFn(e){
         setFirstName(e.target.value.trim())
     }
+    
     function handleChangeLn(e){
         setLastName(e.target.value.trim())
     }
+    
     function handleChangeEmail(e){
         setEmail(e.target.value.trim())
     }
+    
     function handleChangeGen(e){
         setGender(e.target.value.trim())
     }
+    
     function handleChangeAge(e){
         setAge(e.target.value.trim())
     }
-
-
 
     function validateInput(e){
         e.preventDefault()
@@ -67,22 +73,17 @@ export function Signup (){
             setEmail("")
         }
     }
-    const data = JSON.parse(localStorage.getItem("ld"))
-    // console.log(data);
-    useEffect(()=>{
-        if(data !== null){
-            nav("/")
-        }
-    },[])
+    
     const user = useSelector((state)=>state.user);
     const dis = useDispatch();
     const nav = useNavigate();
-    useEffect(()=>{
 
+    useEffect(()=>{
         if(user.role==='admin'||user.role==='client'){
             nav("/")
         }
     },[user,nav,dis])
+    
     function check(){
         const data = localStorage.getItem("ld");
         if(data !== null){

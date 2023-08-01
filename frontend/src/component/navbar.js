@@ -1,22 +1,28 @@
 import "../css/navbar.css"
-import {Link,useParams,Navigate} from "react-router-dom";
-import React, {useState,useEffect} from 'react';
+import {Link} from "react-router-dom";
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {clearUser} from "../reduxstates/loginslice";
+
 export function NavBar(){
+    
     const user = useSelector((state)=>state.user);
     const dis = useDispatch();
     const [isActive,setIsActive] = useState(false);
+    
     function showNav(){
         setIsActive(true);
     }
+    
     function hideNav(){
         setIsActive(false);
     }
+    
     function handleClear(){
         dis(clearUser({id:"",name:"",role:"",jwt:""}));
         localStorage.removeItem("ld")
     }
+    
     const url = window.location.href
     const regex = /http:\/\/localhost:3000\/course\//;
 
