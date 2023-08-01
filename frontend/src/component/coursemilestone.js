@@ -1,7 +1,8 @@
 import { NavBar } from "./navbar"
 import { Link,useParams,useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import {setUser} from "../reduxstates/loginslice";
 import axios from 'axios';
 import "../css/coursemilestone.css";
 export function CourseMilstone (){
@@ -15,15 +16,29 @@ export function CourseMilstone (){
         })
     },[])
     const user = useSelector((state)=>state.user);
+    const dis = useDispatch();
     const nav = useNavigate();
-    if(user.role !== "admin"){
-        nav("/signin")
+    useEffect(()=>{
+        if(user.role==='admin'||user.role==='client'){
+            
+        }else{
+            nav("/signin")
+        }
+    },[user,nav,dis])
+    // console.log(user);
+    function check(){
+        const data = localStorage.getItem("ld");
+        if(data !== null){
+            if(user.role === ""){
+                const pdata = JSON.parse(data);
+                dis(setUser(pdata));
+            }
+        }
     }
-    else if(user.role !== "client"){
-        nav("/signin")
-    }
+    check()
     return(
         <>
+        {user.role !== ""?<>
         <NavBar/>
         <div id="milebox">
             <div className="milecard">
@@ -33,7 +48,7 @@ export function CourseMilstone (){
                 {milstone.map((val,key)=>{
             return(
                     <>
-                    <Link to={`/course/${val._id}/${url.cc}`}>
+                    <Link to={`/course/${val._id}/${url.cid}/${url.cc}`}>
                         <div className="milestep">
                             <h4>{val.ctopic}</h4>
                         </div>
@@ -42,7 +57,7 @@ export function CourseMilstone (){
                     )
                 })}
             </div>
-        </div>
+        </div></>:""}
         </>
     )
 }

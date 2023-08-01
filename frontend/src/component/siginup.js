@@ -1,6 +1,8 @@
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {setUser} from "../reduxstates/loginslice";
+import { useState,useEffect } from 'react';
 import '../css/signup.css';
 export function Signup (){
     const[notify,setNotify] = useState(0);
@@ -65,8 +67,35 @@ export function Signup (){
             setEmail("")
         }
     }
+    const data = JSON.parse(localStorage.getItem("ld"))
+    // console.log(data);
+    useEffect(()=>{
+        if(data !== null){
+            nav("/")
+        }
+    },[])
+    const user = useSelector((state)=>state.user);
+    const dis = useDispatch();
+    const nav = useNavigate();
+    useEffect(()=>{
+
+        if(user.role==='admin'||user.role==='client'){
+            nav("/")
+        }
+    },[user,nav,dis])
+    function check(){
+        const data = localStorage.getItem("ld");
+        if(data !== null){
+            if(user.role === ""){
+                const pdata = JSON.parse(data);
+                dis(setUser(pdata));
+            }
+        }
+    }
+    check()
     return(
         <>
+        {user.role === ""?<>
         <div className={notify===0?"notification":"notification notif"}>
                 <h3>{msg}</h3>
         </div>
@@ -115,7 +144,7 @@ export function Signup (){
                     </form>
                 </div>
             </div>
-        </div>
+        </div></>:""}
         </>
     )
 }

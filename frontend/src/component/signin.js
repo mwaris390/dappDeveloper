@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {setUser} from "../reduxstates/loginslice";
 import axios from 'axios';
@@ -9,17 +9,19 @@ export function Signin (){
     const [username,setUserName] = useState("")
     const [password,setPassword] = useState("")
     const [isadmin,setIsAdmin] = useState(false);
-    const [msg,setMsg] = useState("")
+    const [msg,setMsg] = useState("");
+
     const user = useSelector((state)=>state.user);
     const dis = useDispatch();
     const nav = useNavigate();
-
     function handleChangeUser(e){
         setUserName(e.target.value.trim())
     }
+
     function handleChangePass(e){
         setPassword(e.target.value.trim())
     }
+
     function handleChangeadmin(){
         const checked = document.getElementById("admincheckbox");
         if(checked.checked){
@@ -28,6 +30,7 @@ export function Signin (){
             setIsAdmin(false);
         }
     }
+
     function validateInput(e){
         e.preventDefault()
         if(username === "" || password===""){
@@ -39,8 +42,10 @@ export function Signin (){
         }else{
             axios.post("http://localhost:3001/authuser/loginauth",{username:username,password:password,isadmin:isadmin})
             .then(async(result)=>{
-                // console.log(result.data);
-                dis(setUser(result.data));
+                const obj = {id:result.data.id,name:result.data.username,role:result.data.role,jwt:result.data.jwt};
+                dis(setUser(obj));
+                const sobj = JSON.stringify(obj);
+                localStorage.setItem("ld",sobj);
             })
             .catch((err)=>{
                 // console.log(err.response.data.msg);
@@ -50,21 +55,36 @@ export function Signin (){
                     setNotify(0)
                 },5000)
             })
-
             setMsg("")
             setUserName("");
             setPassword("")
             setIsAdmin(false)
         }
     }
-    if(user.role === "admin"){
-        nav("/admin")
+    // console.log(user);
+    // function checkdata(){
+        
+    // }
+    useEffect(()=>{
+
+        if(user.role==='admin'||user.role==='client'){
+            nav("/")
+        }
+    },[user,nav,dis])
+    // console.log(user);
+    function check(){
+        const data = localStorage.getItem("ld");
+        if(data !== null){
+            if(user.role === ""){
+                const pdata = JSON.parse(data);
+                dis(setUser(pdata));
+            }
+        }
     }
-    else if(user.role === "client"){
-        nav("/")
-    }
+    check()
     return(
         <>
+       {user.role === ""?<>
         <div className={notify===0?"notification":"notification notif"}>
                 <h3>{msg}</h3>
         </div>
@@ -92,7 +112,8 @@ export function Signin (){
                     </form>
                 </div>
             </div>
-        </div>
+        </div></>:""}
         </>
     )
+    
 }

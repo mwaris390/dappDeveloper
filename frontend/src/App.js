@@ -19,7 +19,7 @@ function App() {
           <Route path="signin" element={<Signin/>} />
           <Route path="signup" element={<Signup/>} />
           <Route path={`coursemilestone/:cid/:cc`} element={<CourseMilstone/>} />
-          <Route path={`course/:id/:ch`} element={<Coursepage/>} />
+          <Route path={`course/:id/:cid/:ch`} element={<Coursepage/>} />
           <Route path="admin" element={<Admin/>} />
           <Route path="coursetopic" element={<Coursetopic/>} />
           <Route path="*" element={<ErorrPage/>} />

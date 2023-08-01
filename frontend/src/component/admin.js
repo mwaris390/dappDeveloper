@@ -1,10 +1,19 @@
 import { NavBar } from "./navbar"
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {setUser} from "../reduxstates/loginslice";
+
 import "../css/admin.css";
 export function Admin (){
+    const user = useSelector((state)=>state.user);
+
+    const headers = {
+        Authorization: `Bearer ${user.jwt}`,
+        'Content-Type': 'application/json', 
+      };
+
     const[notify,setNotify] = useState(0);
     const [msg,setMsg] = useState("");
 
@@ -62,7 +71,7 @@ export function Admin (){
             setCourseName("");
             setCourseDesc("");
             setSelectedFile(null)
-            axios.post("http://localhost:3001/course/courseadd",{image:selectedFile,courseCode:courseCode,courseName:courseName,courseDesc:courseDesc}).catch((err)=>{
+            axios.post("http://localhost:3001/course/courseadd",{uid:user.id,image:selectedFile,courseCode:courseCode,courseName:courseName,courseDesc:courseDesc,jwt:user.jwt}).catch((err)=>{
                 console.log(err);
             })
         }
@@ -70,7 +79,8 @@ export function Admin (){
 
     function courseHandleDelete(e){
         const id = e.target.value;
-        axios.delete(`http://localhost:3001/course/coursedelete/${id}`).catch((err)=>{
+        const data = {uid:user.id,jwt:user.jwt}
+        axios.delete(`http://localhost:3001/course/coursedelete/${id}`,{data}).catch((err)=>{
             console.log(err);
         })
     }
@@ -81,11 +91,11 @@ export function Admin (){
         const cn= document.getElementById(`cn${id}`).value.trim();
         const cd= document.getElementById(`cd${id}`).value.trim();
         if(changeSelectedFile!=null){
-            axios.put(`http://localhost:3001/course/courseupdate/${id}`,{image:changeSelectedFile,courseCode:cc,courseName:cn,courseDesc:cd}).catch((err)=>{
+            axios.put(`http://localhost:3001/course/courseupdate/${id}`,{uid:user.id,image:changeSelectedFile,courseCode:cc,courseName:cn,courseDesc:cd,jwt:user.jwt}).catch((err)=>{
             console.log(err);
         })
         }else{
-            axios.put(`http://localhost:3001/course/courseupdate/${id}`,{courseCode:cc,courseName:cn,courseDesc:cd}).catch((err)=>{
+            axios.put(`http://localhost:3001/course/courseupdate/${id}`,{uid:user.id,courseCode:cc,courseName:cn,courseDesc:cd,jwt:user.jwt}).catch((err)=>{
             console.log(err);
         })
         }
@@ -118,7 +128,7 @@ export function Admin (){
             setMsg("")
             setUsername("")
             setPass("")
-            axios.post("http://localhost:3001/adminuser/useradd",{username:username,password:password}).catch((err)=>{
+            axios.post("http://localhost:3001/adminuser/useradd",{uid:user.id,username:username,password:password,jwt:user.jwt}).catch((err)=>{
                 console.log(err);
             })
         }
@@ -127,13 +137,14 @@ export function Admin (){
         const id = e.target.value;
         const un = document.getElementById(`usn${id}`).value.trim();
         const ps= document.getElementById(`pas${id}`).value.trim();
-        axios.put(`http://localhost:3001/adminuser/userupdate/${id}`,{username:un,password:ps}).catch((err)=>{
+        axios.put(`http://localhost:3001/adminuser/userupdate/${id}`,{uid:user.id,username:un,password:ps,jwt:user.jwt}).catch((err)=>{
             console.log(err);
         })
     }
     function handleDelete(e){
         const id = e.target.value;
-        axios.delete(`http://localhost:3001/adminuser/userdelete/${id}`).catch((err)=>{
+        const data = {uid:user.id,jwt:user.jwt}
+        axios.delete(`http://localhost:3001/adminuser/userdelete/${id}`,{data}).catch((err)=>{
             console.log(err);
         })
     }
@@ -158,13 +169,29 @@ export function Admin (){
         })
 
     },[])
-    const user = useSelector((state)=>state.user);
     const nav = useNavigate();
-    if(user.role !== "admin"){
-        nav("/signin")
+    const dis = useDispatch();
+    useEffect(()=>{
+        if(user.role==='admin'){
+            
+        }else{
+            nav("/")
+        }
+    },[user,nav,dis])
+    // console.log(user);
+    function check(){
+        const data = localStorage.getItem("ld");
+        if(data !== null){
+            if(user.role === ""){
+                const pdata = JSON.parse(data);
+                dis(setUser(pdata));
+            }
+        }
     }
+    check()
     return(
         <>
+        {user.role === "admin"?<>
         <div className={notify===0?"notification":"notification notif"}>
                 <h3>{msg}</h3>
         </div>
@@ -248,7 +275,7 @@ export function Admin (){
                     )
                 })}
             </div>
-        </div>
+        </div></>:""}
         </>
     )
 }

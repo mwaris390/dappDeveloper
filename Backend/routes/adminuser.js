@@ -2,8 +2,9 @@ const express = require("express");
 const bcrypt = require("bcrypt")
 const router = express.Router();
 const adminUserModel = require("../models/adminusermodel");
+const authenticate = require("./authenticateToken");
 
-router.post("/useradd",async (req,res)=>{
+router.post("/useradd",authenticate,async (req,res)=>{
     let username=req.body.username;
     let pass= bcrypt.hashSync(req.body.password,10);
 
@@ -19,15 +20,14 @@ router.get("/userread",async(req,res)=>{
     });
 });
 
-router.delete(`/userdelete/:id`,async(req,res)=>{
+router.delete(`/userdelete/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
-    console.log(id);
     await adminUserModel.deleteOne({_id:id});
     console.log("USER DELETED")
 
 });
 
-router.put(`/userupdate/:id`,async(req,res)=>{
+router.put(`/userupdate/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     usn = req.body.username;
     pas= bcrypt.hashSync(req.body.password,10);

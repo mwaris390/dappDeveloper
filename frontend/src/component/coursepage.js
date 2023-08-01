@@ -1,9 +1,14 @@
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import {github} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { NavBar } from "./navbar"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { useSelector } from "react-redux"
+import { useSelector ,useDispatch} from "react-redux"
 import { useParams,useNavigate } from "react-router-dom"
+import {setUser} from "../reduxstates/loginslice";
 import "../css/coursepage.css"
+import chatlogo from "../asset/robot-solid.svg";
+
 export function Coursepage (){
     const[notify,setNotify] = useState(0);
     const [msg,setMsg] = useState("");
@@ -15,6 +20,8 @@ export function Coursepage (){
     const [option3, setOption3] = useState([]);
     const [option4, setOption4] = useState([]);
     const [option5, setOption5] = useState([]);
+    const [evt, setEvt] = useState([]);
+    const [btnallow,setBtnallow] = useState(0)
 
 
     function showNav(){
@@ -23,10 +30,21 @@ export function Coursepage (){
     function hideNav(){
         setIsActive(false);
     }
-
+    const url = useParams();
+    const uid = url.id
+    // function checkBtn(){
+    //  let i;
+    //  for(i=0;i<evt.length;i++){
+    //     if(evt[i] === uid && btnallow === 0){
+    //         setBtnallow(1)
+    //     }
+        // console.log(evt[i]=== uid);
+    //  }
+    // }
+    // checkBtn();
     function testbtn(){
         let wrongAns = 0 ;
-        let msg = "";//You haven't passed! Question 1,2,3 are Wrong
+        let msg = "";
         if(trueAns[0] !== option1){
             wrongAns++;
             msg +="1,";
@@ -45,6 +63,14 @@ export function Coursepage (){
             msg +="5,";
         }
         if(wrongAns<=2){
+            const evalt = url.id;
+            const obj = {
+                coursename:url.ch,
+                coursetopic:content[0].ctopic,
+            }
+            axios.post("http://localhost:3001/clientuser/addeval",{uid:user.id,jwt:user.jwt,evt:evalt,evc:obj}).catch((err)=>{
+                console.log(err);
+            })
             wrongAns!==0?setMsg("You have passed the exam BUT! Question "+msg+" are Wrong"):setMsg("You have passed the exam");
             setNotify(1);
             setTimeout(()=>{
@@ -60,29 +86,46 @@ export function Coursepage (){
             },5000)
         }
     }
-
-    const url = useParams();
-    // console.log(url);
+    const user = useSelector((state)=>state.user);
+    const dis = useDispatch();
+    const nav = useNavigate();
     useEffect(()=>{
-        axios.get(`http://localhost:3001/course/topicread?id=${url.id}`).then((result1)=>{
+        if(user.role==='admin'||user.role==='client'){
+            axios.get(`http://localhost:3001/course/topicread?id=${url.id}`).then((result1)=>{
             setContent(result1.data);
             setTrueAns(result1.data[0].ctrueans)
         }).catch((err)=>{
             console.log(err);
         })
-    },[])
-    // console.log(content);
-    // console.log(trueAns);
-    const user = useSelector((state)=>state.user);
-    const nav = useNavigate();
-    if(user.role !== "admin"){
-        nav("/signin")
+
+        axios.get(`http://localhost:3001/clientuser/readeval/${user.id}`).then((result1)=>{
+            setEvt(result1.data);
+        }).catch((err)=>{
+            console.log(err);
+        })
+        let i;
+        for(i=0;i<evt.length;i++){
+        if(evt[i] === uid && btnallow === 0){
+            setBtnallow(1)
+        }
+        }
+        }else{
+            nav("/signin")
+        }
+    },[evt,btnallow,uid,url,user,nav,dis])
+    function check(){
+        const data = localStorage.getItem("ld");
+        if(data !== null){
+            if(user.role === ""){
+                const pdata = JSON.parse(data);
+                dis(setUser(pdata));
+            }
+        }
     }
-    else if(user.role !== "client"){
-        nav("/signin")
-    }
+    check()
     return(
         <>
+        {user.role!==""?<>
         <div className={notify===0?"notification":"notification notif"}>
                 <h3>{msg}</h3>
         </div>
@@ -105,9 +148,12 @@ export function Coursepage (){
                             <div className="coursecontentcard">
                                 <div className="coursecontenthead">
                                     <h3>{url.ch} : {val.ctopic}</h3>
-                                    <div id="burger" onClick={showNav} >
+                                    {/* <div id="burger" onClick={showNav} >
                                         <span></span>
                                         <span></span>
+                                    </div> */}
+                                    <div className="chatbtn" onClick={showNav}>
+                                        <img src={chatlogo} alt="chat" />
                                     </div>
                                 </div>
                                 <div className="coursecontent">
@@ -117,7 +163,10 @@ export function Coursepage (){
                                         CODE:
                                         <br></br>
                                         <br></br>
+                                        <SyntaxHighlighter language='text' style={github}>
                                         {val.ccode}
+                                        </SyntaxHighlighter>
+                                        
                                     </p>
                                 </div>
                             </div>
@@ -208,14 +257,15 @@ export function Coursepage (){
                                 
                                 
                             </div>
-                            <div className="coursetestbtn">
+                            {user.role === 'client'&& btnallow !== 1?<div className="coursetestbtn">
                                 <button onClick={testbtn} >Submit</button>
-                            </div>
+                            </div>:"" }
+                            
                         </div>
                         </div>
                     </>
                 )
-            })}
+            })}</>:''}
         </>
     )
 }

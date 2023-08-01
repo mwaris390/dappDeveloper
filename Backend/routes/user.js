@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt")
 const router = express.Router();
 const revSugModel = require("../models/revSugModel");
 const userModel = require("../models/usermodel");
+const authenticate = require("./authenticateToken");
 
 router.post("/useradd",async (req,res)=>{
     const username = req.body.username;
@@ -17,11 +18,56 @@ router.post("/useradd",async (req,res)=>{
     console.log("USER ADDED")
 });
 
+router.get("/userclread",async(req,res)=>{
+    await userModel.find({},{__v:0}).then((users)=>{
+        res.json(users)
+        console.log("USER READ")
+    });
+});
+router.get(`/oneuserclread/:id`,async(req,res)=>{
+    const id = req.params.id;
+    await userModel.find({_id:id},{__v:0}).then((users)=>{
+        res.json(users)
+        console.log("USER READ")
+    });
+});
+
+router.delete(`/usercdelete/:id`,authenticate,async(req,res)=>{
+    const id = req.params.id;
+    await userModel.deleteOne({_id:id});
+    console.log("USER DELETED")
+
+});
+
+router.put(`/usercupdate/:id`,authenticate,async(req,res)=>{
+    const id = req.params.id;
+    const usn = req.body.username;
+    const pas= bcrypt.hashSync(req.body.password,10);
+    const ls= req.body.lastname;
+    const fs= req.body.firstname;
+    const em= req.body.email;
+    const ag= req.body.age;
+    const ge= req.body.gender;
+    const ispas = req.body.ispas;
+
+    if(ispas === true){
+        await userModel.updateOne({_id:id},{firstname:fs,lastname:ls,username:usn,password:pas,email:em,age:ag,gender:ge}).then(()=>{
+            console.log("USER UPDATED");
+        })
+    }else{
+        await userModel.updateOne({_id:id},{firstname:fs,lastname:ls,username:usn,email:em,age:ag,gender:ge}).then(()=>{
+            console.log("USER UPDATED");
+        })
+    }
+    
+
+});
+
 
 router.post("/revsugadd",async (req,res)=>{
-    const userName = "JohnDoe2"
-    const category = "Suggestion"
-    const userMsg = ` `
+    const userName = req.body.un
+    const category = req.body.cat
+    const userMsg = req.body.msg
     const revSug = new revSugModel({userName:userName,category:category,userMsg:userMsg});
     await revSug.save();
     console.log("REV ADDED")
@@ -40,6 +86,32 @@ router.delete(`/revsugdelete/:id`,async(req,res)=>{
     await revSugModel.deleteOne({_id:id});
     console.log("REV DELETED")
 
+});
+
+router.post("/addeval",authenticate,async (req,res)=>{
+    const id = req.body.uid
+    const eval = req.body.evt
+    const cval = req.body.evc
+    let evaltopic = []
+    let evalcourse = []
+    await userModel.findOne({_id:id},{__v:0}).then((result)=>{
+        evaltopic = result.evaltopic;
+        evalcourse = result.evalcourse;
+    })
+    
+    await userModel.updateOne({_id:id},{evaltopic:[...evaltopic,eval],evalcourse:[...evalcourse,cval]}).then(()=>{
+        console.log("USER Evaluatation UPDATED");
+    })
+});
+
+router.get(`/readeval/:id`,async (req,res)=>{
+    const id = req.params.id;
+    let evaltopic = []
+    await userModel.findOne({_id:id},{__v:0}).then((result)=>{
+        evaltopic = result.evaltopic;
+    })
+    res.status(200).json(evaltopic);
+    
 });
 
 

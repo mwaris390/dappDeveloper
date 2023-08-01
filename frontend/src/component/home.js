@@ -1,12 +1,16 @@
 import { NavBar } from "./navbar";
 import { useEffect, useState } from "react";
+import {setUser,clearUser} from "../reduxstates/loginslice";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import '../css/home.css'
 export function Home (){
     const [course,setCourse] = useState([]);
+    const dis = useDispatch();
+    const nav = useNavigate();
+    const user = useSelector((state)=>state.user);
     useEffect(()=>{
         axios.get("http://localhost:3001/course/courseread").then((result1)=>{
             setCourse(result1.data);
@@ -14,16 +18,31 @@ export function Home (){
             console.log(err);
         })
     },[])
-    const user = useSelector((state)=>state.user);
-    const nav = useNavigate();
-    if(user.role !== "admin"){
-        nav("/signin")
+    useEffect(()=>{
+        if(user.role==='admin'||user.role==='client'){
+            nav("/")
+        }else{
+            nav("/signin")
+        }
+    },[user,nav,dis])
+    // console.log(user);
+    function check(){
+        const data = localStorage.getItem("ld");
+        if(data !== null){
+            if(user.role === ""){
+                const pdata = JSON.parse(data);
+                dis(setUser(pdata));
+            }
+        }
     }
-    else if(user.role !== "client"){
-        nav("/signin")
-    }
+    check()
+    // setTimeout(() => {
+    //     dis(clearUser({id:"",name:"",role:"",jwt:""}));
+    //     localStorage.removeItem("ld")
+    // }, 30000*60);
     return(
         <>
+        {user.role!==''?<>
             <NavBar/>
             <div id="banner">
                 <h2>Courses</h2>
@@ -54,7 +73,7 @@ export function Home (){
                     )
                 })}
 
-            </div>
+            </div></>:""}
         </>
     )
 }

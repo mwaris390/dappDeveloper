@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const courseModel = require("../models/coursemodel");
 const courseTopicModel = require("../models/coursetopicmodel");
+const authenticate = require("./authenticateToken");
 
 
-router.post("/courseadd",async (req,res)=>{
+router.post("/courseadd",authenticate,async (req,res)=>{
     image = req.body.image;
     ccode = req.body.courseCode;
     courseName = req.body.courseName;
@@ -13,7 +14,7 @@ router.post("/courseadd",async (req,res)=>{
     await course.save();
     console.log("COURSE ADDED")
 });
-router.post("/coursetopicadd",async (req,res)=>{
+router.post("/coursetopicadd",authenticate,async (req,res)=>{
     cid = req.body.cid;
     ctopic = req.body.ctopic;
     ccontent = req.body.ccontent;
@@ -38,6 +39,8 @@ router.get("/coursetopicread",async(req,res)=>{
     });
 });
 
+
+
 router.get("/topicread",async(req,res)=>{
     const q = req.query;
     const cid = q.cid
@@ -57,14 +60,14 @@ router.get("/topicread",async(req,res)=>{
     }
 });
 
-router.delete(`/coursedelete/:id`,async(req,res)=>{
+router.delete(`/coursedelete/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     console.log(id);
     await courseModel.deleteOne({_id:id});
     console.log("COURSE DELETED")
 
 });
-router.delete(`/coursetopicdelete/:id`,async(req,res)=>{
+router.delete(`/coursetopicdelete/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     console.log(id);
     await courseTopicModel.deleteOne({_id:id});
@@ -72,7 +75,7 @@ router.delete(`/coursetopicdelete/:id`,async(req,res)=>{
 
 });
 
-router.put(`/courseupdate/:id`,async(req,res)=>{
+router.put(`/courseupdate/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     image = req.body.image;
     ccode = req.body.courseCode;
@@ -82,7 +85,7 @@ router.put(`/courseupdate/:id`,async(req,res)=>{
         console.log("COURSE UPDATED");
     })
 });
-router.put(`/coursetopicupdate/:id`,async(req,res)=>{
+router.put(`/coursetopicupdate/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     cid = req.body.cid;
     ctopic = req.body.ctopic;

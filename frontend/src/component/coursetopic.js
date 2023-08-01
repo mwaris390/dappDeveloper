@@ -1,11 +1,12 @@
 import { NavBar } from "./navbar"
 import { useState,useEffect } from "react";
-
+import { setUser } from "../reduxstates/loginslice";
 import axios from "axios";
 import "../css/coursetopic.css";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 export function Coursetopic (){
+    const user = useSelector((state)=>state.user);
     const[notify,setNotify] = useState(0);
     const [msg,setMsg] = useState("");
 
@@ -67,7 +68,7 @@ export function Coursetopic (){
             },5000)
         }else{
             setMsg("")
-            axios.post("http://localhost:3001/course/coursetopicadd",{cid:cid,ctopic:ctopic,ccontent:ccontent,ccode:ccode,ctrueans:ctrueans,cques:cques}).catch((err)=>{
+            axios.post("http://localhost:3001/course/coursetopicadd",{uid:user.id,jwt:user.jwt,cid:cid,ctopic:ctopic,ccontent:ccontent,ccode:ccode,ctrueans:ctrueans,cques:cques}).catch((err)=>{
                 console.log(err);
             })
             setCid("")
@@ -117,7 +118,8 @@ export function Coursetopic (){
 
     function delHandle(e){
         const id = e.target.value;
-        axios.delete(`http://localhost:3001/course/coursetopicdelete/${id}`).catch((err)=>{
+        const data = {uid:user.id,jwt:user.jwt}
+        axios.delete(`http://localhost:3001/course/coursetopicdelete/${id}`,{data}).catch((err)=>{
             console.log(err);
         })
     }
@@ -170,17 +172,33 @@ export function Coursetopic (){
             question1:cq1,option1:[cq1o1,cq1o2,cq1o3,cq1o4]},{question1:cq2,option2:[cq2o1,cq2o2,cq2o3,cq2o4]},{question3:cq3,option2:[cq3o1,cq3o2,cq3o3,cq3o4]},{question4:cq4,option3:[cq4o1,cq4o2,cq4o3,cq4o4]},{question5:cq5,option4:[cq5o1,cq5o2,cq5o3,cq5o4]
             }];
 
-        axios.put(`http://localhost:3001/course/coursetopicupdate/${id}`,{cid:cid,ctopic:ctopic,ccontent:ccontent,ccode:ccode,ctrueans:trueAns,cques:questions}).catch((err)=>{
+        axios.put(`http://localhost:3001/course/coursetopicupdate/${id}`,{uid:user.id,jwt:user.jwt,cid:cid,ctopic:ctopic,ccontent:ccontent,ccode:ccode,ctrueans:trueAns,cques:questions}).catch((err)=>{
             console.log(err);
         })
     }
-    const user = useSelector((state)=>state.user);
     const nav = useNavigate();
-    if(user.role !== "admin"){
-        nav("/signin")
+    const dis = useDispatch();
+    useEffect(()=>{
+        if(user.role==='admin'){
+            
+        }else{
+            nav("/")
+        }
+    },[user,nav,dis])
+    // console.log(user);
+    function check(){
+        const data = localStorage.getItem("ld");
+        if(data !== null){
+            if(user.role === ""){
+                const pdata = JSON.parse(data);
+                dis(setUser(pdata));
+            }
+        }
     }
+    check()
     return(
         <>
+        {user.role === "admin"?<>
         <div className={notify===0?"notification":"notification notif"}>
                 <h3>{msg}</h3>
         </div>
@@ -292,7 +310,7 @@ export function Coursetopic (){
                 })}
             </div>
             
-        </div>
+        </div></>:""}
         </>
     )
 }
