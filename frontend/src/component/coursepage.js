@@ -1,5 +1,3 @@
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import {github} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { NavBar } from "./navbar"
 import { useEffect, useState } from "react"
 import axios from "axios"
@@ -161,9 +159,9 @@ export function Coursepage (){
                                         CODE:
                                         <br></br>
                                         <br></br>
-                                        <SyntaxHighlighter language='text' style={github}>
+                                        {/* <SyntaxHighlighter language='text' style={github}> */}
                                         {val.ccode}
-                                        </SyntaxHighlighter>
+                                        {/* </SyntaxHighlighter> */}
                                         
                                     </p>
                                 </div>

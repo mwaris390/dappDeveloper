@@ -71,7 +71,7 @@ export function Coursetopic (){
             },5000)
         }else{
             setMsg("")
-            axios.post("http://localhost:3001/course/coursetopicadd",{uid:user.id,jwt:user.jwt,cid:cid,ctopic:ctopic,ccontent:ccontent,ccode:ccode,ctrueans:ctrueans,cques:cques}).catch((err)=>{
+            axios.post("http://localhost:3001/course/coursetopicadd",{uid:user.id,jwt:user.jwt,cid:cid.trim(),ctopic:ctopic.trim(),ccontent:ccontent.trim(),ccode:ccode.trim(),ctrueans:ctrueans,cques:cques}).catch((err)=>{
                 console.log(err);
             })
             setCid("")
@@ -215,45 +215,51 @@ export function Coursetopic (){
                 <h2>Course Topic</h2>
                 <div className="topicinput">
 
-                    <input type="number" placeholder="courseID" value={cid} onChange={(e)=>{setCid(e.target.value.trim())}} />
-                    <input type="text" placeholder="courseTopic/Step"  value={ctopic} onChange={(e)=>{setCtopic(e.target.value.trim())}} />
-                    <textarea placeholder="Course Content" value={ccontent} onChange={(e)=>{setCcontent(e.target.value.trim())}}></textarea>
-                    <textarea placeholder="Code Example" value={ccode} onChange={(e)=>{setCcode(e.target.value.trim())}}></textarea>
+                    <input type="number" placeholder="courseID" value={cid} onChange={(e)=>{setCid(e.target.value)}} />
+                    <input type="text" placeholder="courseTopic/Step"  value={ctopic} onChange={(e)=>{setCtopic(e.target.value)}} />
+                    <textarea placeholder="Course Content" value={ccontent} onChange={(e)=>{setCcontent(e.target.value)}}></textarea>
+                    <textarea placeholder="Code Example" value={ccode} onChange={(e)=>{setCcode(e.target.value)}}></textarea>
 
-                    <input type="text" placeholder="Question:1" value={q1} onChange={(e)=>{setQ1(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q1option1" value={q1o1} onChange={(e)=>{setQ1o1(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q1option2" value={q1o2} onChange={(e)=>{setQ1o2(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q1option3" value={q1o3} onChange={(e)=>{setQ1o3(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q1option4" value={q1o4} onChange={(e)=>{setQ1o4(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q1 true answer" value={ans1}onChange={(e)=>{setAns1(e.target.value.trim())}}/>
+                    <input type="text" placeholder="Question:1" value={q1} onChange={(e)=>{setQ1(e.target.value)}}/>
+                    <input type="text" placeholder="Q1option1" value={q1o1} onChange={(e)=>{setQ1o1(e.target.value)}}/>
+                    <input type="text" placeholder="Q1option2" value={q1o2} onChange={(e)=>{setQ1o2(e.target.value)}}/>
+                    <input type="text" placeholder="Q1option3" value={q1o3} onChange={(e)=>{setQ1o3(e.target.value)}}/>
+                    <input type="text" placeholder="Q1option4" value={q1o4} onChange={(e)=>{setQ1o4(e.target.value)}}/>
+                    <input type="text" placeholder="Q1 true answer" value={ans1}onChange={(e)=>{setAns1(e.target.value)}}/>
 
-                    <input type="text" name="coursequestion" id="coursequestion" placeholder="Question:2" value={q2} onChange={(e)=>{setQ2(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q2option1" value={q2o1} onChange={(e)=>{setQ2o1(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q2option2" value={q2o2} onChange={(e)=>{setQ2o2(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q2option3" value={q2o3} onChange={(e)=>{setQ2o3(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q2option4" value={q2o4} onChange={(e)=>{setQ2o4(e.target.value.trim())}}/>
-                    <input type="text"placeholder="Q2 true answer" value={ans2}onChange={(e)=>{setAns2(e.target.value.trim())}}/>
+                    <input type="text" name="coursequestion" id="coursequestion" placeholder="Question:2" value={q2} onChange={(e)=>{setQ2(e.target.value)}}/>
+                    <input type="text" placeholder="Q2option1" value={q2o1} onChange={(e)=>{setQ2o1(e.target.value)}}/>
+                    <input type="text" placeholder="Q2option2" value={q2o2} onChange={(e)=>{setQ2o2(e.target.value)}}/>
+                    <input type="text" placeholder="Q2option3" value={q2o3} onChange={(e)=>{setQ2o3(e.target.value)}}/>
+                    <input type="text" placeholder="Q2option4" value={q2o4} onChange={(e)=>{setQ2o4(e.target.value)}}/>
+                    <input type="text"placeholder="Q2 true answer" value={ans2}onChange={(e)=>{setAns2(e.target.value)}}/>
 
-                    <input type="text" name="coursequestion" id="coursequestion" placeholder="Question:3" value={q3} onChange={(e)=>{setQ3(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q3option1" value={q3o1} onChange={(e)=>{setQ3o1(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q3option2" value={q3o2} onChange={(e)=>{setQ3o2(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q3option3" value={q3o3} onChange={(e)=>{setQ3o3(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q3option4" value={q3o4} onChange={(e)=>{setQ3o4(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q3 true answer" value={ans3}onChange={(e)=>{setAns3(e.target.value.trim())}}/>
+                    <input type="text" name="coursequestion" id="coursequestion" placeholder="Question:3" value={q3} onChange={(e)=>{setQ3(e.target.value)}}/>
+                    <input type="text" placeholder="Q3option1" value={q3o1} onChange={(e)=>{setQ3o1(e.target.value)}}/>
+                    <input type="text" placeholder="Q3option2" value={q3o2} onChange={(e)=>{setQ3o2(e.target.value)}}/>
+                    <input type="text" placeholder="Q3option3" value={q3o3} onChange={(e)=>{setQ3o3(e.target.value)}}/>
+                    <input type="text" placeholder="Q3option4" value={q3o4} onChange={(e)=>{setQ3o4(e.target.value)}}/>
+                    <input type="text" placeholder="Q3 true answer" value={ans3}onChange={(e)=>{setAns3(e.target.value)}}/>
 
-                    <input type="text" name="coursequestion" id="coursequestion" placeholder="Question:4" value={q4} onChange={(e)=>{setQ4(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q4option1" value={q4o1} onChange={(e)=>{setQ4o1(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q4option2" value={q4o2} onChange={(e)=>{setQ4o2(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q4option3" value={q4o3} onChange={(e)=>{setQ4o3(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q4option4" value={q4o4} onChange={(e)=>{setQ4o4(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q4 true answer" value={ans4}onChange={(e)=>{setAns4(e.target.value.trim())}}/>
+                    <input type="text" name="coursequestion" id="coursequestion" placeholder="Question:4" value={q4} onChange={(e)=>{setQ4(e.target.value)}}/>
+                    <input type="text" placeholder="Q4option1" value={q4o1} onChange={(e)=>{setQ4o1(e.target.value)}}/>
+                    <input type="text" placeholder="Q4option2" value={q4o2} onChange={(e)=>{setQ4o2(e.target.value)}}/>
+                    <input type="text" placeholder="Q4option3" value={q4o3} onChange={(e)=>{setQ4o3(e.target.value)}}/>
+                    <input type="text" placeholder="Q4option4" value={q4o4} onChange={(e)=>{setQ4o4(e.target.value)}}/>
+                    <input type="text" placeholder="Q4 true answer" value={ans4}onChange={(e)=>{setAns4(e.target.value)}}/>
 
-                    <input type="text" name="coursequestion" id="coursequestion" placeholder="Question:5" value={q5} onChange={(e)=>{setQ5(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q5option1" value={q5o1} onChange={(e)=>{setQ5o1(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q5option2" value={q5o2} onChange={(e)=>{setQ5o2(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q5option3" value={q5o3} onChange={(e)=>{setQ5o3(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q5option4" value={q5o4} onChange={(e)=>{setQ5o4(e.target.value.trim())}}/>
-                    <input type="text" placeholder="Q5 true answer" value={ans5}onChange={(e)=>{setAns5(e.target.value.trim())}}onBlur={()=>{setCtrueans([ans1,ans2,ans3,ans4,ans5]); setCques([{question1:q1,option1:[q1o1,q1o2,q1o3,q1o4]},{question1:q2,option2:[q2o1,q2o2,q2o3,q2o4]},{question3:q3,option2:[q3o1,q3o2,q3o3,q3o4]},{question4:q4,option3:[q4o1,q4o2,q4o3,q4o4]},{question5:q5,option4:[q5o1,q5o2,q5o3,q5o4]}])}}/>
+                    <input type="text" name="coursequestion" id="coursequestion" placeholder="Question:5" value={q5} onChange={(e)=>{setQ5(e.target.value)}}/>
+                    <input type="text" placeholder="Q5option1" value={q5o1} onChange={(e)=>{setQ5o1(e.target.value)}}/>
+                    <input type="text" placeholder="Q5option2" value={q5o2} onChange={(e)=>{setQ5o2(e.target.value)}}/>
+                    <input type="text" placeholder="Q5option3" value={q5o3} onChange={(e)=>{setQ5o3(e.target.value)}}/>
+                    <input type="text" placeholder="Q5option4" value={q5o4} onChange={(e)=>{setQ5o4(e.target.value)}}/>
+                    <input type="text" placeholder="Q5 true answer" value={ans5}onChange={(e)=>{setAns5(e.target.value)}}onBlur={()=>{
+                        setCtrueans([ans1.trim(),ans2.trim(),ans3.trim(),ans4.trim(),ans5.trim()]); 
+                        setCques([
+                            {question1:q1.trim(),option1:[q1o1.trim(),q1o2.trim(),q1o3.trim(),q1o4.trim()]},{question1:q2.trim(),option2:[q2o1.trim(),q2o2.trim(),q2o3.trim(),q2o4.trim()]},{question3:q3.trim(),option2:[q3o1.trim(),q3o2.trim(),q3o3.trim(),q3o4.trim()]},{question4:q4.trim(),option3:[q4o1.trim(),q4o2.trim(),q4o3.trim(),q4o4.trim()]},{question5:q5.trim(),option4:[q5o1.trim(),q5o2.trim(),q5o3.trim(),q5o4.trim()]}])
+                        }
+                    }
+                    />
                     
                     <button onClick={handleSubmit} className="topicaddbtn">Add Course topic</button>
                     

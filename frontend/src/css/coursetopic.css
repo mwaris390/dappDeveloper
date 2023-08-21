@@ -65,6 +65,8 @@
     background-color: #0362AB;
     border: none;
     cursor: pointer;
+    transition: background-color .2s;
+
 }
 #topicbox .topiccard .topicinput .topicaddbtn:hover{
     background-color: #03508b;
@@ -138,6 +140,8 @@
     border: none;
     cursor: pointer;
     margin-bottom: 0.5rem;
+    transition: background-color .2s;
+
 }
 #topicbox .existcoursecard .topicinput1 button:hover,#topicbox .existcoursecard .topicinput1 button:hover{
     background-color: #03508b;

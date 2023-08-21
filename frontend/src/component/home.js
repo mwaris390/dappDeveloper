@@ -50,6 +50,7 @@ export function Home (){
                 {course.map((val,key)=>{
                     return(
                         <>
+                        <Link to={`/coursemilestone/${val.courseCode}/${val.courseName}`}>
                         <div id="card">
                             <div className="image">
                                 <img src={val.image} alt="imgg" />
@@ -60,13 +61,14 @@ export function Home (){
                                 <div className="description">
                                     <p>{val.courseDescription}</p>
                                 </div>
-                                <div className="contentbtn">
+                                {/* <div className="contentbtn">
                                     <Link to={`/coursemilestone/${val.courseCode}/${val.courseName}`}>
                                         <button>Lets start!</button>
                                     </Link>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
+                        </Link>
                         </>
                     )
                 })}

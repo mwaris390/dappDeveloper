@@ -23,7 +23,7 @@ router.post("/coursetopicadd",authenticate,async (req,res)=>{
     cques = req.body.cques;
     const courseTopic = new courseTopicModel({cid:cid,ctopic:ctopic,ccontent:ccontent,ccode:ccode,ctrueans:ctrueans,cquestion:cques});
     await courseTopic.save();
-    //console.log("COURSE TOPIC ADDED")
+    // console.log("COURSE TOPIC ADDED")
 });
 
 router.get("/courseread",async(req,res)=>{

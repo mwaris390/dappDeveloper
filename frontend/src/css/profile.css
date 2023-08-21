@@ -29,6 +29,8 @@
     margin-bottom: 0.5rem;
     font-weight: bold;
     background-color: #FAFAFA;
+    transition: background-color .2s;
+
 
 }
 #probox .procard form input:focus{
@@ -41,6 +43,7 @@
     border: 1px solid #0387D2;
     height: 2rem;
     margin-bottom: 0.5rem;
+    transition: background-color .2s;
 }
 #probox .procard .updatebtn{
     width: 100%;
@@ -50,6 +53,8 @@
     background-color: #0362AB;
     border: none;
     cursor: pointer;
+    transition: background-color .2s;
+
 }
 #probox .procard form input:hover,#probox .procard form .radiobtn:hover{
     border: 1px solid #03508b;
@@ -97,6 +102,8 @@
     outline: none;
     margin-bottom: 0.5rem;
     background-color: #FAFAFA;
+    transition: background-color .2s;
+
 }
 #probox .sugcard .sugbox #suggbox:focus,#probox .sugcard .sugbox #reviewbox:focus{
     background-color: white;
@@ -112,6 +119,8 @@
     background-color: #0362AB;
     border: none;
     cursor: pointer;
+    transition: background-color .2s;
+
 }
 #probox .sugcard .sugbox .updatebtn:hover{
     background-color: #03508b;

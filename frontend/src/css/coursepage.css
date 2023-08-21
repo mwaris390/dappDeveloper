@@ -83,10 +83,14 @@
     padding: 1.5rem 2.5rem 1.5rem 2.5rem;
     box-shadow: 0px 1px 15px 0px rgba(128, 128, 128, 0.51);
     border-radius: 1rem;
+    white-space: pre-line;
+    word-spacing: 0.5rem;
+    font-size: 1.1rem;
 }
 #coursecontentbox .coursecontentcard .coursecontent .code{
     font-family: "source code pro",monospace;
     font-size: 1.2rem;
+    font-weight: bold;
 }
 #coursecontentbox .coursetest{
     display: flex;
@@ -124,6 +128,8 @@
     background-color: #0362AB;
     border: none;
     cursor: pointer;
+    transition: background-color .2s;
+
 }
 #coursecontentbox .coursetest .coursetestbtn .error button{
     background-color: #E76161;

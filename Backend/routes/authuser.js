@@ -18,7 +18,7 @@ async function authAdmin(req,res,next){
         if(ans !== null){
             const truepass = bcrypt.compareSync(pas,ans.password);
             const token = jwt.sign({id:ans._id,
-                username:ans.name}, process.env.SECRET_KEY);
+                username:ans.name}, process.env.SECRET_KEY,{expiresIn:"8h"});
             if(truepass === false){
                 res.status(400).json({msg:"Invalid password"})
             }else{
@@ -45,7 +45,7 @@ async function authUser(req,res,next){
         if(ans !== null){
             const truepass = bcrypt.compareSync(pas,ans.password);
             const token = jwt.sign({id:ans._id,
-                username:ans.username}, process.env.SECRET_KEY);
+                username:ans.username}, process.env.SECRET_KEY,{expiresIn:"8h"});
             if(truepass === false){
                 res.status(400).json({msg:"Invalid password"})
             }else{

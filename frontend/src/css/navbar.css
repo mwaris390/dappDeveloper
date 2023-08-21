@@ -16,6 +16,7 @@
     height: 3rem;
     text-align: center;
 }
+
 #logo a{
     text-decoration: none;
 }
@@ -47,6 +48,13 @@
     top: 0;
     left: 0;
     height: 100vh;
+}
+.navbar h1{
+    color: #362ab3;
+    padding-left: 0.5rem;
+}
+.navbar h1 span{
+    color: #93C47D;
 }
 .active-navbar{
     transform: translateX(0%);
@@ -88,6 +96,7 @@
     border: 1.5px solid #362ab3;
     color: #362ab3;
     text-decoration: none;
+    transition: color .2s;
 
 }
 .navbar li:hover{

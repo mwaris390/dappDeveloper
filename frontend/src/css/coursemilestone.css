@@ -29,6 +29,8 @@
     box-shadow: 0px 1px 15px 0px rgba(128, 128, 128, 0.51);
     border-radius: 1rem;
     cursor: pointer;
+    transition: color ,background-color .2s;
+
 }
 #milebox .milecard a:hover{
     color: white;

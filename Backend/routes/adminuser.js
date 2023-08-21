@@ -10,7 +10,7 @@ router.post("/useradd",authenticate,async (req,res)=>{
 
     const adminUser = new adminUserModel({name:username,password:pass});
     await adminUser.save();
-    //console.log("USER ADDED")
+    // console.log("USER ADDED")
 });
 
 router.get("/userread",async(req,res)=>{
@@ -29,8 +29,8 @@ router.delete(`/userdelete/:id`,authenticate,async(req,res)=>{
 
 router.put(`/userupdate/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
-    usn = req.body.username;
-    pas= bcrypt.hashSync(req.body.password,10);
+    const usn = req.body.username;
+    const pas= bcrypt.hashSync(req.body.password,10);
     const ispas = req.body.ispas;
     if(ispas === true){
         await adminUserModel.updateOne({_id:id},{name:usn,password:pas}).then(()=>{

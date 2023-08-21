@@ -40,6 +40,8 @@
     justify-content: center;
     align-items: center;
     margin-right: 0.5rem;
+    transition: background-color .2s;
+
   }
   
   #adminbox .admincard .admininput .custom-file-label:hover {
@@ -78,6 +80,8 @@
     background-color: #0362AB;
     border: none;
     cursor: pointer;
+    transition: background-color .2s;
+
 }
 #adminbox .admincard .admininput .adminbtn:hover{
     background-color: #03508b;
@@ -126,6 +130,8 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 0.5rem;
+    transition: background-color .2s;
+
   }
   
   #adminbox .admincard1 .admininput1 .custom-file-label:hover {
@@ -191,6 +197,8 @@
     cursor: pointer;
     margin-bottom: 0.5rem;
     padding: 0rem 0.2rem 0rem 0.2rem;
+    transition: background-color .2s;
+
 }
 #adminbox .admincard1 .admininput1 .updatebtn:hover,#adminbox .admincard1 .admininput1 .delbtn:hover{
     background-color: #03508b;

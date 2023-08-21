@@ -49,6 +49,7 @@ export function NavBar(){
                     <span></span>
                 </div>
                 <div>
+                    <h1><span>WELCOME</span><br/>{user.name}</h1>
                     <ul>
                         {regex.test(url)?
                         <Link to={-1}>
@@ -57,6 +58,9 @@ export function NavBar(){
                         :
                         ""
                         }
+                        <Link to='/'>
+                            <li>Home</li>
+                        </Link>
                         {user.role === "admin"?
                         <Link to='/admin'>
                         <li>Admin</li>
@@ -64,9 +68,6 @@ export function NavBar(){
                         :
                         ""
                         }
-                        <Link to='/'>
-                            <li>Home</li>
-                        </Link>
                         {user.role === "client"?
                         <Link to='/userprofile'>
                         <li>Profile</li>

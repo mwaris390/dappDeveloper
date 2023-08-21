@@ -8,7 +8,7 @@ async function authenticateToken(req, res, next) {
   }else{
     jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
       if (err){
-          //console.log('Invalid token.');
+          console.log('Invalid token.or EXPIRED');
       }else{
         if(user.id === req.body.uid){
           next();

@@ -71,7 +71,7 @@ export function Admin (){
             setCourseName("");
             setCourseDesc("");
             setSelectedFile(null)
-            axios.post("http://localhost:3001/course/courseadd",{uid:user.id,image:selectedFile,courseCode:courseCode,courseName:courseName,courseDesc:courseDesc,jwt:user.jwt}).catch((err)=>{
+            axios.post("http://localhost:3001/course/courseadd",{uid:user.id,image:selectedFile,courseCode:courseCode.trim().toLowerCase(),courseName:courseName.trim().toLowerCase(),courseDesc:courseDesc.trim().toLowerCase(),jwt:user.jwt}).catch((err)=>{
                 console.log(err);
             })
         }
@@ -110,10 +110,10 @@ export function Admin (){
 
 
     function handlechangeuser(e){
-        setUsername(e.target.value.trim())
+        setUsername(e.target.value)
     }
     function handlechangepass(e){
-        setPass(e.target.value.trim())
+        setPass(e.target.value)
     }
 
     function handleAddUser(e){
@@ -128,7 +128,7 @@ export function Admin (){
             setMsg("")
             setUsername("")
             setPass("")
-            axios.post("http://localhost:3001/adminuser/useradd",{uid:user.id,username:username,password:password,jwt:user.jwt}).catch((err)=>{
+            axios.post("http://localhost:3001/adminuser/useradd",{uid:user.id,username:username.trim().toLowerCase(),password:password.trim().toLowerCase(),jwt:user.jwt}).catch((err)=>{
                 console.log(err);
             })
         }
@@ -247,9 +247,9 @@ export function Admin (){
                     <input type="file" id="fileInput" onChange={handleFileChange}/>
                     <label htmlFor="fileInput" className="custom-file-label">{selectedFile !== null?"Selected":"Select img"}</label>
 
-                    <input type="number" value={courseCode} onChange={(e)=>{setCourseCode(e.target.value.trim())}} placeholder="Course code" />
-                    <input type="text" value={courseName} onChange={(e)=>{setCourseName(e.target.value.trim())}} placeholder="Please Enter New Course name" />
-                    <input type="text" value={courseDesc} onChange={(e)=>{setCourseDesc(e.target.value.trim())}} placeholder="Please Enter New Course description" />
+                    <input type="number" value={courseCode} onChange={(e)=>{setCourseCode(e.target.value)}} placeholder="Course code" />
+                    <input type="text" value={courseName} onChange={(e)=>{setCourseName(e.target.value)}} placeholder="Please Enter New Course name" />
+                    <input type="text" value={courseDesc} onChange={(e)=>{setCourseDesc(e.target.value)}} placeholder="Please Enter New Course description" />
                     <button className="adminbtn" onClick={handlecourseadd}>Add Course</button>
                 </div>
             </div>
@@ -262,7 +262,7 @@ export function Admin (){
                             <h4>{key+1}</h4>
                             <img src={val.image} alt="courseimg" />
                             <input type="file" id="changeFileInput" onChange={changeHandleFileChange}/>
-                            <label htmlFor="changeFileInput" className="custom-file-label">Select</label>
+                            <label htmlFor="changeFileInput" className="custom-file-label">{changeSelectedFile !== null?"Selected":"Select img"}</label>
 
                             <input type="number" defaultValue={val.courseCode} id={`cc${val._id}`}/>
                             <input type="text" defaultValue={val.courseName}id={`cn${val._id}`}/>
