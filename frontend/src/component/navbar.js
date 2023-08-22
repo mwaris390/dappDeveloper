@@ -3,7 +3,8 @@ import {Link} from "react-router-dom";
 import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {clearUser} from "../reduxstates/loginslice";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHouse,faUserTie,faBackward,faAddressCard,faArrowRightFromBracket,faFileLines,faUserGraduate } from '@fortawesome/free-solid-svg-icons'
 export function NavBar(){
     
     const user = useSelector((state)=>state.user);
@@ -49,28 +50,28 @@ export function NavBar(){
                     <span></span>
                 </div>
                 <div>
-                    <h1><span>WELCOME</span><br/>{user.name}</h1>
+                    <h1><span>WELCOME</span><br/>{user.name} <FontAwesomeIcon icon={faUserGraduate} /></h1>
                     <ul>
                         {regex.test(url)?
                         <Link to={-1}>
-                            <li>Back</li>
+                            <li><FontAwesomeIcon icon={faBackward} /> Back</li>
                         </Link>
                         :
                         ""
                         }
                         <Link to='/'>
-                            <li>Home</li>
+                            <li><FontAwesomeIcon icon={faHouse} /> Home</li>
                         </Link>
                         {user.role === "admin"?
                         <Link to='/admin'>
-                        <li>Admin</li>
+                        <li><FontAwesomeIcon icon={faUserTie} /> Admin</li>
                         </Link>
                         :
                         ""
                         }
                         {user.role === "client"?
                         <Link to='/userprofile'>
-                        <li>Profile</li>
+                        <li><FontAwesomeIcon icon={faAddressCard} /> Profile</li>
                         </Link>
                         :
                         ""
@@ -78,14 +79,14 @@ export function NavBar(){
                         {(window.location.href==="http://localhost:3000/admin"||window.location.href==="http://localhost:3000/coursetopic")?
                         <>
                             <Link to='/coursetopic'>
-                                <li>Courses</li>
+                                <li><FontAwesomeIcon icon={faFileLines} /> Courses</li>
                             </Link>
                         </>
                         :
                         ""
                         }
                         <Link to='/signin'>
-                            <li onClick={handleClear}>Signout</li>
+                            <li onClick={handleClear}><FontAwesomeIcon icon={faArrowRightFromBracket} /> Signout</li>
                         </Link>
                     </ul>
                 </div>

@@ -5,7 +5,9 @@ import { useSelector ,useDispatch} from "react-redux"
 import { useParams,useNavigate } from "react-router-dom"
 import {setUser} from "../reduxstates/loginslice";
 import "../css/coursepage.css"
-import chatlogo from "../asset/robot-solid.svg";
+// import chatlogo from "../asset/robot-solid.svg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRobot } from '@fortawesome/free-solid-svg-icons'
 
 export function Coursepage (){
 
@@ -149,7 +151,8 @@ export function Coursepage (){
                                 <div className="coursecontenthead">
                                     <h3>{url.ch} : {val.ctopic}</h3>
                                     <div className="chatbtn" onClick={showNav}>
-                                        <img src={chatlogo} alt="chat" />
+                                        {/* <img src={chatlogo} alt="chat" /> */}
+                                        <FontAwesomeIcon icon={faRobot} />
                                     </div>
                                 </div>
                                 <div className="coursecontent">
@@ -159,10 +162,7 @@ export function Coursepage (){
                                         CODE:
                                         <br></br>
                                         <br></br>
-                                        {/* <SyntaxHighlighter language='text' style={github}> */}
                                         {val.ccode}
-                                        {/* </SyntaxHighlighter> */}
-                                        
                                     </p>
                                 </div>
                             </div>

@@ -10,6 +10,7 @@ router.post("/useradd",authenticate,async (req,res)=>{
 
     const adminUser = new adminUserModel({name:username,password:pass});
     await adminUser.save();
+    res.status(201).json({"msg":"USER ADDED"})
     // console.log("USER ADDED")
 });
 
@@ -23,6 +24,7 @@ router.get("/userread",async(req,res)=>{
 router.delete(`/userdelete/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     await adminUserModel.deleteOne({_id:id});
+    res.status(200).json({"msg":"USER DELETED"})
     //console.log("USER DELETED")
 
 });
@@ -35,10 +37,14 @@ router.put(`/userupdate/:id`,authenticate,async(req,res)=>{
     if(ispas === true){
         await adminUserModel.updateOne({_id:id},{name:usn,password:pas}).then(()=>{
             //console.log("USER UPDATED");
+            res.status(200).json({"msg":"USER UPDATED"})
+
         })
     }else{
         await adminUserModel.updateOne({_id:id},{name:usn}).then(()=>{
             //console.log("USER UPDATED");
+            res.status(200).json({"msg":"USER UPDATED"})
+
         })
     }
 

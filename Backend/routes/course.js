@@ -12,6 +12,7 @@ router.post("/courseadd",authenticate,async (req,res)=>{
     courseDesc = req.body.courseDesc;
     const course = new courseModel({image:image,courseCode:ccode,courseName:courseName,courseDescription:courseDesc});
     await course.save();
+    res.status(201).json({"msg":"COURSE ADDED"})
     //console.log("COURSE ADDED")
 });
 router.post("/coursetopicadd",authenticate,async (req,res)=>{
@@ -23,6 +24,7 @@ router.post("/coursetopicadd",authenticate,async (req,res)=>{
     cques = req.body.cques;
     const courseTopic = new courseTopicModel({cid:cid,ctopic:ctopic,ccontent:ccontent,ccode:ccode,ctrueans:ctrueans,cquestion:cques});
     await courseTopic.save();
+    res.status(201).json({"msg":"COURSE TOPIC ADDED"})
     // console.log("COURSE TOPIC ADDED")
 });
 
@@ -63,12 +65,14 @@ router.get("/topicread",async(req,res)=>{
 router.delete(`/coursedelete/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     await courseModel.deleteOne({_id:id});
+    res.status(200).json({"msg":"COURSE DELETED"})
     //console.log("COURSE DELETED")
 
 });
 router.delete(`/coursetopicdelete/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     await courseTopicModel.deleteOne({_id:id});
+    res.status(200).json({"msg":"COURSE DELETED"})
     //console.log("COURSE TOPIC DELETED")
 
 });
@@ -81,6 +85,8 @@ router.put(`/courseupdate/:id`,authenticate,async(req,res)=>{
     courseDesc = req.body.courseDesc;
     await courseModel.updateOne({_id:id},{image:image,courseCode:ccode,courseName:courseName,courseDescription:courseDesc}).then(()=>{
         //console.log("COURSE UPDATED");
+        res.status(200).json({"msg":"COURSE UPDATED"})
+
     })
 });
 router.put(`/coursetopicupdate/:id`,authenticate,async(req,res)=>{
@@ -93,6 +99,7 @@ router.put(`/coursetopicupdate/:id`,authenticate,async(req,res)=>{
     cques = req.body.cques;
     await courseTopicModel.updateOne({_id:id},{cid:cid,ctopic:ctopic,ccontent:ccontent,ccode:ccode,ctrueans:ctrueans,cquestion:cques}).then(()=>{
         //console.log("COURSE TOPIC UPDATED");
+        res.status(200).json({"msg":"COURSE UPDATED"})
     })
 });
 module.exports = router

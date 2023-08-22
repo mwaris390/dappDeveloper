@@ -19,31 +19,31 @@ export function Signup (){
     const [password,setPassword] = useState("")
 
     function handleChangeUser(e){
-        setUserName(e.target.value.trim())
+        setUserName(e.target.value)
     }
     
     function handleChangePass(e){
-        setPassword(e.target.value.trim())
+        setPassword(e.target.value)
     }
     
     function handleChangeFn(e){
-        setFirstName(e.target.value.trim())
+        setFirstName(e.target.value)
     }
     
     function handleChangeLn(e){
-        setLastName(e.target.value.trim())
+        setLastName(e.target.value)
     }
     
     function handleChangeEmail(e){
-        setEmail(e.target.value.trim())
+        setEmail(e.target.value)
     }
     
     function handleChangeGen(e){
-        setGender(e.target.value.trim())
+        setGender(e.target.value)
     }
     
     function handleChangeAge(e){
-        setAge(e.target.value.trim())
+        setAge(e.target.value)
     }
 
     function validateInput(e){
@@ -61,7 +61,7 @@ export function Signup (){
                 setNotify(0)
                 setMsg("")
             },5000)
-            axios.post("http://localhost:3001/clientuser/useradd",{username:username,firstname:firstname,lastname:lastname,password:password,age:Age,gender:gender,email:email}).catch((err)=>{
+            axios.post("http://localhost:3001/clientuser/useradd",{username:username.trim().toLowerCase(),firstname:firstname.trim().toLowerCase(),lastname:lastname.trim().toLowerCase(),password:password.trim().toLowerCase(),age:Age.trim(),gender:gender.trim().toLowerCase(),email:email.trim().toLowerCase()}).catch((err)=>{
                 console.log(err);
             })
             setUserName("");

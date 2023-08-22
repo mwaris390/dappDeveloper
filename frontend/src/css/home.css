@@ -90,7 +90,7 @@
         flex-direction: column;
         padding: 0.5rem;
     }
-    #coursesshow #card{
+    #coursesshow a{
         width: 100%;
         margin: 1rem 0rem 0rem 0rem;
     }

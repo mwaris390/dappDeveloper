@@ -15,6 +15,7 @@ router.post("/useradd",async (req,res)=>{
     const age = req.body.age;
     const user = new userModel({username:username,firstname:firstname,lastname:lastname,password:password,email:email,age:age,gender:gender});
     await user.save();
+    res.status(201).json({"msg":"COURSE ADDED"})
     //console.log("USER ADDED")
 });
 
@@ -36,6 +37,7 @@ router.delete(`/usercdelete/:id`,authenticate,async(req,res)=>{
     const id = req.params.id;
     await userModel.deleteOne({_id:id});
     //console.log("USER DELETED")
+    res.status(200).json({"msg":"COURSE DELETED"})
 
 });
 
@@ -53,10 +55,13 @@ router.put(`/usercupdate/:id`,authenticate,async(req,res)=>{
     if(ispas === true){
         await userModel.updateOne({_id:id},{firstname:fs,lastname:ls,username:usn,password:pas,email:em,age:ag,gender:ge}).then(()=>{
             //console.log("USER UPDATED");
+            res.status(200).json({"msg":"COURSE UPDATED"})
         })
     }else{
         await userModel.updateOne({_id:id},{firstname:fs,lastname:ls,username:usn,email:em,age:ag,gender:ge}).then(()=>{
             //console.log("USER UPDATED");
+            res.status(200).json({"msg":"COURSE UPDATED"})
+
         })
     }
     

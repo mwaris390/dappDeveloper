@@ -107,3 +107,9 @@
 .navbar a{
     text-decoration: none;
 }
+
+@media screen and (max-width:640px){
+    #header{
+        padding: 0px 0.5rem 0px 0.5rem;
+    }
+}

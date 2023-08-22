@@ -18,11 +18,11 @@ export function Signin (){
     const nav = useNavigate();
     
     function handleChangeUser(e){
-        setUserName(e.target.value.trim())
+        setUserName(e.target.value)
     }
 
     function handleChangePass(e){
-        setPassword(e.target.value.trim())
+        setPassword(e.target.value)
     }
 
     function handleChangeadmin(){
@@ -43,7 +43,7 @@ export function Signin (){
                 setNotify(0)
             },5000)
         }else{
-            axios.post("http://localhost:3001/authuser/loginauth",{username:username,password:password,isadmin:isadmin})
+            axios.post("http://localhost:3001/authuser/loginauth",{username:username.trim().toLowerCase(),password:password.trim().toLowerCase(),isadmin:isadmin})
             .then(async(result)=>{
                 const obj = {id:result.data.id,name:result.data.username,role:result.data.role,jwt:result.data.jwt};
                 dis(setUser(obj));
