@@ -2,7 +2,7 @@
 
 Welcome to **DappDeveloper**, your go-to platform for learning and mastering Solidity programming language and decentralized application development! Whether you're a beginner or an experienced developer, our comprehensive courses and interactive evaluation system will help you enhance your skills in the exciting world of blockchain development.
 
-![DappDeveloper Logo](`./frontend/src/asset/logo.png`)
+![DappDeveloper Logo](./frontend/src/asset/logo.png)
 
 ## Table of Contents
 
