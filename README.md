@@ -2,7 +2,7 @@
 
 Welcome to **DappDeveloper**, your go-to platform for learning and mastering Solidity programming language and decentralized application development! Whether you're a beginner or an experienced developer, our comprehensive courses and interactive evaluation system will help you enhance your skills in the exciting world of blockchain development.
 
-![DappDeveloper Logo](`./frontend/src/asset/logo.png`)
+![DappDeveloper Logo](./frontend/src/asset/logo.png)
 
 ## Table of Contents
 
@@ -61,13 +61,3 @@ DappDeveloper is an innovative education platform tailored for individuals eager
 2. Perform CRUD operations on courses: Create, Read, Update, and Delete.
 3. Manage user accounts and profiles to ensure a smooth learning experience for all users.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-Start your journey into the exciting world of blockchain development with DappDeveloper! Feel free to contribute, share feedback, and learn together with our thriving community.
-```
-
-Remember to replace `insert_logo_image_url_here` with the actual URL of your logo image. This README file provides an overview of your "DappDeveloper" education platform, its features, technologies used, getting started instructions, user guide, admin panel, and license information. Feel free to customize and enhance it according to your project's branding and requirements.
