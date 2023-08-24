@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import {setUser} from "../reduxstates/loginslice";
 import refBtn from '../asset/rotate-solid.svg'
 import "../css/admin.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRotate } from '@fortawesome/free-solid-svg-icons'
 
 export function Admin (){
     
@@ -225,19 +227,26 @@ export function Admin (){
             </div>
             
             <div className="admincard1">
-                    {admins.map((val,key)=>{
-                        return(
-                            <>
-                            <div className="admininput1">
-                            <h4>{key+1}</h4>
-                            <input type="text" defaultValue={val.name}  id={`usn${val._id}`} />
-                            <input type="text" defaultValue={val.password} onChange={(e)=>{setIspasschanged(e.target.value)}} id={`pas${val._id}`}/>
-                            <button  value={val._id} className="updatebtn" onClick={handleUpdate}>Update</button>
-                            <button value={val._id} className="delbtn" onClick={handleDelete}>Delete</button>
-                            </div>  
-                            </>
-                        )
-                    })}           
+                {admins[0] !== undefined?
+                admins.map((val,key)=>{
+                    return(
+                        <>
+                        <div className="admininput1">
+                        <h4>{key+1}</h4>
+                        <input type="text" defaultValue={val.name}  id={`usn${val._id}`} />
+                        <input type="text" defaultValue={val.password} onChange={(e)=>{setIspasschanged(e.target.value)}} id={`pas${val._id}`}/>
+                        <button  value={val._id} className="updatebtn" onClick={handleUpdate}>Update</button>
+                        <button value={val._id} className="delbtn" onClick={handleDelete}>Delete</button>
+                        </div>  
+                        </>
+                    )
+                })
+                :
+                <div id="lazyLoad">
+	                <h4>Loading<FontAwesomeIcon icon={faRotate} />Please Wait...</h4>
+                </div>
+                }
+                               
             </div>
             <div className="adminhead">
                 <h2>Courses</h2>
@@ -255,7 +264,8 @@ export function Admin (){
             </div>
     
             <div className="admincard1">
-                {courses.map((val,key)=>{
+                {courses[0] !== undefined?
+                courses.map((val,key)=>{
                     return(
                         <>
                         <div className="admininput1">
@@ -272,7 +282,13 @@ export function Admin (){
                         </div>
                         </>
                     );
-                })}
+                })
+                :
+                <div id="lazyLoad">
+	                <h4>Loading<FontAwesomeIcon icon={faRotate} />Please Wait...</h4>
+                </div>
+                }
+                
               
             </div>
             
@@ -280,7 +296,8 @@ export function Admin (){
                 <h2>Suggestions And Review</h2>
             </div>
             <div className="admincard1">
-                {revSug.map((val,key)=>{
+                {revSug[0]!== undefined?
+                revSug.map((val,key)=>{
                     return(
                         <>
                         <div className="admininput1">
@@ -290,27 +307,42 @@ export function Admin (){
                         </div> 
                         </>
                     )
-                })}
+                })
+                :
+                <div id="lazyLoad">
+	                <h4>Loading<FontAwesomeIcon icon={faRotate} />Please Wait...</h4>
+                </div>
+
+                }
+                
             </div>
 
             <div className="adminhead">
                 <h2>Client Users</h2>
             </div>
             <div className="admincard1">
-                    {users.map((val,key)=>{
-                        return(
-                            <>
-                            <div className="admininput1">
-                            <h4>{key+1}</h4>
-                            <input type="text" defaultValue={val._id} disabled/>
-                            <input type="text" defaultValue={val.username} disabled/>
-                            <input type="text" defaultValue={val.email} disabled/>
-                            <input type="text" defaultValue={val.age} disabled/>
-                            <input type="text" defaultValue={val.gender} disabled/>
-                            </div>  
-                            </>
-                        )
-                    })}           
+                {users[0] !== undefined?
+                users.map((val,key)=>{
+                    return(
+                        <>
+                        <div className="admininput1">
+                        <h4>{key+1}</h4>
+                        <input type="text" defaultValue={val._id} disabled/>
+                        <input type="text" defaultValue={val.username} disabled/>
+                        <input type="text" defaultValue={val.email} disabled/>
+                        <input type="text" defaultValue={val.age} disabled/>
+                        <input type="text" defaultValue={val.gender} disabled/>
+                        </div>  
+                        </>
+                    )
+                })
+                :
+                <div id="lazyLoad">
+	                <h4>Loading<FontAwesomeIcon icon={faRotate} />Please Wait...</h4>
+                </div>
+
+                }
+                               
             </div>
 
         </div></>:""}

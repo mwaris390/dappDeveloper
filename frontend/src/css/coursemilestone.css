@@ -30,7 +30,7 @@
     border-radius: 1rem;
     cursor: pointer;
     transition: color ,background-color .2s;
-
+    text-align: center;
 }
 #milebox .milecard a:hover{
     color: white;
@@ -38,6 +38,7 @@
     box-shadow: 0px 1px 15px 5px rgba(128, 128, 128, 0.51);
 
 }
+
 
 @media screen and (max-width:640px){
     #milebox .milecard{

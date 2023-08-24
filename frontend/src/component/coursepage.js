@@ -5,7 +5,6 @@ import { useSelector ,useDispatch} from "react-redux"
 import { useParams,useNavigate } from "react-router-dom"
 import {setUser} from "../reduxstates/loginslice";
 import "../css/coursepage.css"
-// import chatlogo from "../asset/robot-solid.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRobot } from '@fortawesome/free-solid-svg-icons'
 
@@ -142,7 +141,7 @@ export function Coursepage (){
                 </iframe>
                 </div>
             </div>
-
+            
             {content.map((val,key)=>{
                 return(
                     <>
@@ -151,7 +150,6 @@ export function Coursepage (){
                                 <div className="coursecontenthead">
                                     <h3>{url.ch} : {val.ctopic}</h3>
                                     <div className="chatbtn" onClick={showNav}>
-                                        {/* <img src={chatlogo} alt="chat" /> */}
                                         <FontAwesomeIcon icon={faRobot} />
                                     </div>
                                 </div>
@@ -171,84 +169,122 @@ export function Coursepage (){
                                     <h3>Content Evaluation Test</h3>
                                 </div>
                             <div className="coursetestcontent">
-                                <h5>1. {val.cquestion[0].question1}</h5>
+                                <h4>1. {val.cquestion[0].question1}</h4>
                                 <div className="coursetestcontentoption">
-
+                                    <div className="opbox">
                                     <input type="radio"value={val.cquestion[0].option1[0]} name="o1" onChange={(e)=>{setOption1(e.target.value)}}/>
                                     <h6>{val.cquestion[0].option1[0]}</h6>
-
+                                    </div>
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[0].option1[1]} name="o1"onChange={(e)=>{setOption1(e.target.value)}}/>
                                     <h6>{val.cquestion[0].option1[1]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[0].option1[2]} name="o1"onChange={(e)=>{setOption1(e.target.value)}}/>
                                     <h6>{val.cquestion[0].option1[2]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[0].option1[3]} name="o1"onChange={(e)=>{setOption1(e.target.value)}}/>
                                     <h6>{val.cquestion[0].option1[3]}</h6>
+                                    </div>
                                 </div> 
 
-                                <h5>2. {val.cquestion[1].question1}</h5>
+                                <h4>2. {val.cquestion[1].question1}</h4>
                                 <div className="coursetestcontentoption">
                                     
+                                    <div className="opbox">
                                     <input type="radio"value={val.cquestion[1].option2[0]} name="o2" onChange={(e)=>{setOption2(e.target.value)}}/>
                                     <h6>{val.cquestion[1].option2[0]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[1].option2[1]} name="o2" onChange={(e)=>{setOption2(e.target.value)}}/>
                                     <h6>{val.cquestion[1].option2[1]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[1].option2[2]} name="o2" onChange={(e)=>{setOption2(e.target.value)}}/>
                                     <h6>{val.cquestion[1].option2[2]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[1].option2[3]} name="o2" onChange={(e)=>{setOption2(e.target.value)}}/>
                                     <h6>{val.cquestion[1].option2[3]}</h6>
+                                    </div>
                                 </div> 
 
-                                <h5>3. {val.cquestion[2].question3}</h5>
+                                <h4>3. {val.cquestion[2].question3}</h4>
                                 <div className="coursetestcontentoption">
                                     
+                                    <div className="opbox">
                                     <input type="radio"value={val.cquestion[2].option2[0]} name="o3" onChange={(e)=>{setOption3(e.target.value)}}/>
                                     <h6>{val.cquestion[2].option2[0]}</h6>
-
+                                    </div>
+                                    
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[2].option2[1]} name="o3" onChange={(e)=>{setOption3(e.target.value)}}/>
                                     <h6>{val.cquestion[2].option2[1]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[2].option2[2]} name="o3" onChange={(e)=>{setOption3(e.target.value)}}/>
                                     <h6>{val.cquestion[2].option2[2]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[2].option2[3]} name="o3" onChange={(e)=>{setOption3(e.target.value)}}/>
                                     <h6>{val.cquestion[2].option2[3]}</h6>
+                                    </div>
                                 </div>
 
-                                <h5>4. {val.cquestion[3].question4}</h5>
+                                <h4>4. {val.cquestion[3].question4}</h4>
                                 <div className="coursetestcontentoption">
                                     
+                                    <div className="opbox">
                                     <input type="radio"value={val.cquestion[3].option3[0]} name="o4" onChange={(e)=>{setOption4(e.target.value)}}/>
                                     <h6>{val.cquestion[3].option3[0]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[3].option3[1]} name="o4" onChange={(e)=>{setOption4(e.target.value)}}/>
                                     <h6>{val.cquestion[3].option3[1]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[3].option3[2]} name="o4" onChange={(e)=>{setOption4(e.target.value)}}/>
                                     <h6>{val.cquestion[3].option3[2]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[3].option3[3]} name="o4" onChange={(e)=>{setOption4(e.target.value)}}/>
                                     <h6>{val.cquestion[3].option3[3]}</h6>
+                                    </div>
                                 </div> 
 
-                                <h5>5. {val.cquestion[4].question5}</h5>
+                                <h4>5. {val.cquestion[4].question5}</h4>
                                 <div className="coursetestcontentoption">
                                     
+                                    <div className="opbox">
                                     <input type="radio"value={val.cquestion[4].option4[0]} name="o5" onChange={(e)=>{setOption5(e.target.value)}}/>
                                     <h6>{val.cquestion[4].option4[0]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[4].option4[4]} name="o5" onChange={(e)=>{setOption5(e.target.value)}}/>
                                     <h6>{val.cquestion[4].option4[1]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[4].option4[2]} name="o5" onChange={(e)=>{setOption5(e.target.value)}}/>
                                     <h6>{val.cquestion[4].option4[2]}</h6>
+                                    </div>
 
+                                    <div className="opbox">
                                     <input type="radio" value={val.cquestion[4].option4[3]} name="o5" onChange={(e)=>{setOption5(e.target.value)}}/>
                                     <h6>{val.cquestion[4].option4[3]}</h6>
+                                    </div>
                                 </div>  
                                 
                                 

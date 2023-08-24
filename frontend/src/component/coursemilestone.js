@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import {setUser} from "../reduxstates/loginslice";
 import axios from 'axios';
 import "../css/coursemilestone.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRotate } from '@fortawesome/free-solid-svg-icons'
 
 export function CourseMilstone (){
 
@@ -48,17 +50,23 @@ export function CourseMilstone (){
                 <div className="milehead">
                     <h3>{url.cc}</h3>
                 </div>
-                {milstone.map((val,key)=>{
-            return(
-                    <>
-                    <Link to={`/course/${val._id}/${url.cid}/${url.cc}`}>
-                        <div className="milestep">
-                            <h4>{val.ctopic}</h4>
-                        </div>
-                    </Link>
-                    </>
-                    )
-                })}
+                {milstone[0] !== undefined?
+                milstone.map((val,key)=>{
+                    return(
+                            <>
+                            <Link to={`/course/${val._id}/${url.cid}/${url.cc}`}>
+                                <div className="milestep">
+                                    <h4>{val.ctopic}</h4>
+                                </div>
+                            </Link>
+                            </>
+                            )
+                        })
+                :
+                <div id="lazyLoad">
+                    <h4>Loading<FontAwesomeIcon icon={faRotate} />Please Wait...</h4>
+                </div>
+                }
             </div>
         </div></>:""}
         </>

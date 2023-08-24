@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import '../css/home.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRotate } from '@fortawesome/free-solid-svg-icons'
 
 export function Home (){
 
@@ -37,7 +39,6 @@ export function Home (){
         }
     }
     check()
-    
     return(
         <>
         {user.role!==''?<>
@@ -47,7 +48,8 @@ export function Home (){
                 <p><strong>WEB3 technology is the future of the internet</strong> , enabling a decentralized, transparent, and secure online experience for users. By embracing WEB3 technology, you're not only joining a revolutionary movement but also paving the way for a more equitable and inclusive digital world.</p>
             </div>
             <div id="coursesshow">
-                {course.map((val,key)=>{
+                {course[0] !== undefined?
+                course.map((val,key)=>{
                     return(
                         <>
                         <Link to={`/coursemilestone/${val.courseCode}/${val.courseName}`}>
@@ -61,18 +63,17 @@ export function Home (){
                                 <div className="description">
                                     <p>{val.courseDescription}</p>
                                 </div>
-                                {/* <div className="contentbtn">
-                                    <Link to={`/coursemilestone/${val.courseCode}/${val.courseName}`}>
-                                        <button>Lets start!</button>
-                                    </Link>
-                                </div> */}
                             </div>
                         </div>
                         </Link>
                         </>
                     )
-                })}
-
+                })
+                :
+                <div id="lazyLoad">
+                    <h4>Loading<FontAwesomeIcon icon={faRotate} />Please Wait...</h4>
+                </div>
+                }
             </div></>:""}
         </>
     )

@@ -6,6 +6,8 @@ import "../css/coursetopic.css";
 import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import refBtn from '../asset/rotate-solid.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRotate } from '@fortawesome/free-solid-svg-icons'
 
 export function Coursetopic (){
     
@@ -271,7 +273,8 @@ export function Coursetopic (){
             </div>
 
             <div className="existcoursecard">
-                {topic.map((val,key)=>{
+                {topic[0] !== undefined?
+                topic.map((val,key)=>{
                     return(
                         <>
                         <div className="topicinput1">
@@ -320,7 +323,13 @@ export function Coursetopic (){
                         </div>
                         </>
                     )
-                })}
+                })
+                :
+                <div id="lazyLoad">
+	                <h4>Loading<FontAwesomeIcon icon={faRotate} />Please Wait...</h4>
+                </div>
+                }
+                
             </div>
             
         </div></>:""}
