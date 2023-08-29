@@ -34,9 +34,10 @@ DappDeveloper is an innovative education platform tailored for individuals eager
 
 ## Technologies Used
 
-- **Frontend:** React, JWT for authentication, Font Awesome for icons.
+- **Frontend:** React:, JWT for authentication, Font Awesome for icons.
 - **Backend:** Node.js, Express.js, MongoDB Atlas for database storage.
 - **Authentication:** JSON Web Tokens (JWT) for secure user authentication.
+- **Google DialogFlow** Chatbot for user blockchain queries.
 
 ## Getting Started
 
@@ -60,4 +61,20 @@ DappDeveloper is an innovative education platform tailored for individuals eager
 1. Admins can log in using their authorized credentials.
 2. Perform CRUD operations on courses: Create, Read, Update, and Delete.
 3. Manage user accounts and profiles to ensure a smooth learning experience for all users.
+
+## ScreenShots
+
+1. Sign-In
+![DappDeveloper Logo](./frontend/src/ScreenShots/signin.PNG)
+2. Log-In
+![DappDeveloper Logo](./frontend/src/ScreenShots/llogin.PNG)
+3. Home
+![DappDeveloper Logo](./frontend/src/ScreenShots/home.PNG)
+4. Course Steps
+![DappDeveloper Logo](./frontend/src/ScreenShots/milestone.PNG)
+5. Course Page
+![DappDeveloper Logo](./frontend/src/ScreenShots/cp.PNG)
+6. Admin Panel
+![DappDeveloper Logo](./frontend//src/ScreenShots/admin1.PNG)
+
 
